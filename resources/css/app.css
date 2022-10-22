@@ -1,0 +1,8 @@
+@import "~admin-lte/dist/css/adminlte.min.css";
+@import "~admin-lte/plugins/fontawesome-free/css/all.min.css";
+
+.ellipsis{
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
