@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SuccursaleController;
+use App\Http\Livewire\Succursales;
 use App\Http\Livewire\Users;
 
 /*
@@ -21,7 +22,6 @@ use App\Http\Livewire\Users;
 |
 */
 
-Route::resource('succursales',SuccursaleController::class);
 Route::get('register',[RegisterController::class,'index'])->name('register');
 Route::post('register',[RegisterController::class,'register'])->name('post.register');
 
@@ -41,12 +41,18 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 // Le groupe des routes relatives aux managers uniquement
 Route::group([
     "middleware" =>["auth","auth.manager"],
-    'as' => 'manager.'
+    "prefix" => "manager",'as' => 'manager.'
 ],function(){
     Route::group(
-        ["prefix" => "manager"],function(){
+        ["prefix" => "gestcomptes","as" => "gestcomptes."],function(){
             Route::get("/users",Users::class)->name("users.index");
         }
     );
-}
-);
+    Route::group([
+        "prefix" => "gestsuccursales",'as' => 'gestsuccursales.'], function(){
+
+        Route::get("/succursales", Succursales::class)->name("succursales");
+
+    });
+
+});

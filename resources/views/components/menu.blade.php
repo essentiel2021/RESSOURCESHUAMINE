@@ -31,8 +31,8 @@
             </ul>
         </li>
         
-        <li class="nav-item {{ setMenuClass('manager.','menu-open')}}">
-            <a href="#" class="nav-link {{ setMenuClass('manager.','active')}}">
+        <li class="nav-item {{ setMenuClass('manager.gestcomptes.', 'menu-open') }}">
+            <a href="#" class="nav-link {{ setMenuClass('manager.gestcomptes.','active')}}">
               <i class=" nav-icon fas fa-user-shield"></i>
               <p>
                 Gestion Comptes
@@ -41,9 +41,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route("manager.users.index") }}" class="nav-link {{ setMenuActive("manager.users.index") }}">
+                <a href="{{ route("manager.gestcomptes.users.index")}}" class="nav-link {{ setMenuActive("manager.gestcomptes.users.index") }}">
                   <i class=" nav-icon fas fa-users-cog"></i>
-                  <p>Utilisateurs</p>
+                  <p>Comptes</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -55,6 +55,33 @@
             </ul>
           </li>
         </li>
+
+
+        <li class="nav-item {{ setMenuClass('manager.gestsuccursales.','menu-open')}}">
+            <a href="{{ route("manager.gestsuccursales.succursales") }}" class="nav-link {{ setMenuClass('manager.gestsuccursales.','active')}}">
+            <i class="nav-icon fa-solid fa-building-user"></i>
+              <p>
+                Gestion Succursales
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route("manager.gestsuccursales.succursales")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.succursales") }}">
+                  <i class="nav-icon fa-regular fa-building"></i>
+                  <p>Succursales</p>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
+                <a href="{{ route("manager.gestsuccursales.succursales")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.succursales") }}">
+                  <i class="nav-icon fa-solid fa-bars"></i>
+                  <p>Départements</p>
+                </a>
+              </li> --}}
+            </ul>
+          </li>
+        </li>
+       
         @endcan 
                
         @can('assistant')

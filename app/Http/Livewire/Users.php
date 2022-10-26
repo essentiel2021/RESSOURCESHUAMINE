@@ -24,7 +24,10 @@ class Users extends Component
     public $rolePermissions = [];
 
     protected $validationAttributes = [
-        'newUser.email' => 'Email'
+        'newUser.email' => 'Email',
+        'newUser.lastName' => 'Prénom',
+        'newUser.sexe' => 'Genre',
+        'newUser.name' => 'Nom',
     ];
     public function render()
     {
