@@ -1,13 +1,10 @@
-<div>
-    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
-</div>
 <div class="row p-4 pt-5">
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-primary">
                 <h3 class="card-title flex-grow-1"><i class="fa-regular fa-building fa-2x"></i> Succursales</h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a class="btn btn-link text-white mr-4 d-block"><i class="fa-regular fa-building"></i> Nouvelle</a>
+                    <a class="btn btn-link text-white mr-4 d-block" wire:click="toggleShowAddSuccursaleForm()"><i class="fa-regular fa-building"></i> Nouvelle</a>
                     <div class="input-group input-group-md" style="width: 250px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
@@ -28,12 +25,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if ($isAddSuccursale)
+                            <tr>
+                                <td colspan="2">
+                                    <input type="text" wire:keydown.enter='addNewSuccursale' wire:model="newSuccursaleName" class="form-control @error('newSuccursaleName') is-invalid @enderror"/>
+                                    @error('newSuccursaleName')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-link" wire:click="addNewSuccursale()"> <i class="fa fa-check"></i> Valider</button>
+                                    <button class="btn btn-link" wire:click="toggleShowAddSuccursaleForm()"> <i class="far fa-trash-alt"></i> Annuler</button>
+                                </td>
+                            </tr>
+                        @endif
                         @foreach($succursales as $succursale)
                             <tr>
                                 <td>{{ $succursale->libelle }}</td>
                                 <td class="text-center">{{ optional($succursale->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                                    <button class="btn btn-link" wire:click='editSuccursale({{$succursale->id}})'> <i class="far fa-edit"></i> </button>
                                     <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
                                 </td>
                             </tr>
@@ -49,3 +60,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    window.addEventListener("showEditForm",function(e){
+        
+        Swal.fire({
+        title: "Edition d'une succursale",
+        input: 'text',
+        inputValue: e.detail.succursale.libelle,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText:'Modifier <i class="fa fa-check"></i>',
+        cancelButtonText:'Annuler <i class="fa fa-times"></i>',
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Champ obligatoire'
+            }
+            @this.updateSuccursale(e.detail.succursale.id)
+        }
+        })
+    })
+</script>

@@ -12,6 +12,8 @@ class Succursale extends Model
 {
     use HasFactory;
     use HasSlug;
+
+    protected $fillable = ['libelle','slug'];
     
     public function getSlugOptions() : SlugOptions
     {
