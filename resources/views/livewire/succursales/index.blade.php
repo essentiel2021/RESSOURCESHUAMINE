@@ -1,4 +1,19 @@
 <div class="row p-4 pt-5">
+    <div class="modal fade" id="modalProd" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-primary">
@@ -45,6 +60,7 @@
                                 <td class="text-center">{{ optional($succursale->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">
                                     <button class="btn btn-link" wire:click='editSuccursale({{$succursale->id}})'> <i class="far fa-edit"></i> </button>
+                                    <button class="btn btn-link" wire:click='showProp({{$succursale->id}})'> <i class="fa-solid fa-bars"></i> </button>
                                     <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
                                 </td>
                             </tr>
@@ -63,7 +79,6 @@
 
 <script>
     window.addEventListener("showEditForm",function(e){
-        
         Swal.fire({
         title: "Edition d'une succursale",
         input: 'text',
@@ -77,8 +92,44 @@
             if (!value) {
                 return 'Champ obligatoire'
             }
-            @this.updateSuccursale(e.detail.succursale.id)
+            @this.updateSuccursale(e.detail.succursale.id,value)
         }
         })
     })
+
+     window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Opération effectuée avec succès!",
+                showConfirmButton: false,
+                timer: 5000
+                }
+            )
+    })
+
+    window.addEventListener("showConfirmMessage", event=>{
+        Swal.fire({
+        title:event.detail.message.title,
+        text: event.detail.message.text,
+        icon:event.detail.message.type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler',
+        }).then((result) => {
+        if (result.isConfirmed) {
+            if(event.detail.message.data){
+                @this.deleteSuccursale(event.detail.message.data.succursale_id)
+            }
+        }
+        })
+    })
+</script>
+<script>
+    window.addEventListener("showModal", event=>{
+        $("#modalProd").modal({"show": true,"backdrop": "static"})
+        })
 </script>

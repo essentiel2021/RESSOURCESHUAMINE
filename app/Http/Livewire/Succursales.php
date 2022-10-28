@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Succursale;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class Succursales extends Component
 {
@@ -12,6 +13,7 @@ class Succursales extends Component
     protected $paginationTheme = "bootstrap";
     public $isAddSuccursale = false;
     public $newSuccursaleName = "";
+    public $newValue = "";
 
     public function toggleShowAddSuccursaleForm(){
         if($this->isAddSuccursale){
@@ -33,16 +35,35 @@ class Succursales extends Component
         Succursale::create(["libelle"=> $validated["newSuccursaleName"]]);
 
         $this->toggleShowAddSuccursaleForm();
-        // $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Type d'article ajouté à jour avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Succursale ajoutée  avec succès!"]);
     }
-    public function editSuccursale($id){
-        $succursale = Succursale::find($id); 
-        //dd($succursale->exists);
+    public function editSuccursale(Succursale $succursale){
         //renvoi lobjet succursale
         $this->dispatchBrowserEvent("showEditForm",["succursale"=>$succursale]);
     }
-    public function updateSuccursale(){
-
+    public function updateSuccursale( Succursale $succursale,$valueFromJs){
+        $this->newValue = $valueFromJs;
+        $validated = $this->validate([
+            "newValue" => ["required", "max:50", Rule::unique("succursales", "libelle")->ignore($succursale->id)]
+        ]);
+        $succursale->update(["libelle" => $validated["newValue"]]);
+        $this->dispatchBrowserEvent("showSuccessMessage",["message" => "Succursale mise à jour avec succès !"]);
+    }
+    public function confirmDelete($name,$id){
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
+            'text' => "Vous êtes sur le point de supprimer la succursale $name de la liste.Voulez vous continuer?",
+            'title' =>"Êtes vous sûr de vouloir continuer?",
+            'type' => "warning",
+            'data' => ["succursale_id" => $id]
+        ]]);
+    }
+    public function deleteSuccursale(Succursale $succursale){
+        $succursale->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Succursale $succursale->libelle supprimé avec succès!"]);
+    }
+    public function showProp(Succursale $succursale){
+        //dd($succursale);
+        $this->dispatchBrowserEvent("showModal",[]);
     }
     public function render()
     {

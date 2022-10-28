@@ -23,6 +23,7 @@
     "dependencies": {
         "admin-lte": "3.2",
         "autoprefixer": "10.4.5",
+        "jquery": "^3.6.1",
         "sweetalert2": "^11.5.2"
     }
 }
