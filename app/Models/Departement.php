@@ -12,6 +12,7 @@ class Departement extends Model
 {
     use HasFactory;
     use HasSlug;
+    protected $fillable = ['libelle','slug','succursale_id'];
     public function succursale()
     {
         return $this->belongsTo(Succursale::class);

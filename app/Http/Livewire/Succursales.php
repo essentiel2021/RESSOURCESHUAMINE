@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Departement;
 use App\Models\Succursale;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +15,8 @@ class Succursales extends Component
     public $isAddSuccursale = false;
     public $newSuccursaleName = "";
     public $newValue = "";
+    public $selectedSuccursale;
+    public $newDepartement = "";
 
     public function toggleShowAddSuccursaleForm(){
         if($this->isAddSuccursale){
@@ -30,7 +33,7 @@ class Succursales extends Component
     ];
     public function addNewSuccursale(){
         $validated = $this->validate([
-            "newSuccursaleName" => "required|max:50|unique:succursales,libelle"
+            "newSuccursaleName.libelle" => "required|max:50|unique:succursales,libelle"
         ]);
         Succursale::create(["libelle"=> $validated["newSuccursaleName"]]);
 
@@ -63,12 +66,28 @@ class Succursales extends Component
     }
     public function showProp(Succursale $succursale){
         //dd($succursale);
+        $this->selectedSuccursale = $succursale;
         $this->dispatchBrowserEvent("showModal",[]);
     }
+    public function closeModal(){
+        $this->dispatchBrowserEvent("closeModal",[]);
+    }
+
+    public function addDepartement(){
+        $validated = $this->validate([
+            "newDepartement" => ["required",Rule::unique("departements", "libelle")->where("succursale_id", $this->selectedTypeArticle->id)]
+        ]);
+        Departement::create([
+            "libelle" => $this->newDepartement,
+            "succursale_id" => $this->selectedSuccursale->id
+        ]);
+    }
+
     public function render()
     {
         $data = [
-            "succursales" => Succursale::latest()->paginate(5)
+            "succursales" => Succursale::latest()->paginate(5),
+            "departements" => Departement::where("succursale_id",optional($this->selectedSuccursale)->id)->get()
         ];
         return view('livewire.succursales.index',$data)->extends("layouts.master")->section("contenu");
     }
