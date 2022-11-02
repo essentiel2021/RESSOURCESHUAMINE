@@ -83,7 +83,7 @@ class Succursales extends Component
         ]); 
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département ajoutée avec succès!"]);
     }
-
+    
     public function render()
     {
         $data = [
