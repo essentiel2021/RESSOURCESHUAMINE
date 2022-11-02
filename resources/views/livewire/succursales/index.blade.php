@@ -15,7 +15,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <button class="btn btn-success" wire:click='addDepartement'>Ajouter</button>
+                        <div>
+                            <button class="btn btn-success" wire:click='addDepartement'>Ajouter</button>
+                        </div>
+                        
                     </div>
                     <table class="table table-bordered">
                         <thead class="bg-primary">
