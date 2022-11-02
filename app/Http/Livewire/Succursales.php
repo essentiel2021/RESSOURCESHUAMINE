@@ -81,6 +81,7 @@ class Succursales extends Component
             "libelle" => $this->newDepartement,
             "succursale_id" => $this->selectedSuccursale->id
         ]); 
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département ajoutée avec succès!"]);
     }
 
     public function render()
