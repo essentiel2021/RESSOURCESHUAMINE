@@ -30,8 +30,8 @@
                                 <tr>
                                 <td>{{$departement->libelle}}</td>
                                 <td>
-                                    <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                                    <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
+                                    <button class="btn btn-link" wire:click="editDepartement({{$departement->id}})"> <i class="far fa-edit"></i> </button>
+                                    <button class="btn btn-link" wire:click="showDeleteDep('{{$departement->libelle}}', {{$departement->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 </td>
                             </tr>
                             @empty
@@ -97,7 +97,10 @@
                                 <td class="text-center">
                                     <button class="btn btn-link" wire:click='editSuccursale({{$succursale->id}})'> <i class="far fa-edit"></i> </button>
                                     <button class="btn btn-link" wire:click='showProp({{$succursale->id}})'> <i class="fa-solid fa-bars"></i> </button>
-                                    <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                    @if(count($succursale->departements) == 0)
+                                        <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                    @endif
+                                    {{-- <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -157,8 +160,11 @@
         cancelButtonText: 'Annuler',
         }).then((result) => {
         if (result.isConfirmed) {
-            if(event.detail.message.data){
+            if(event.detail.message.data.succursale_id){
                 @this.deleteSuccursale(event.detail.message.data.succursale_id)
+            }
+            if(event.detail.message.data.departement_id){
+                @this.deleteDepartement(event.detail.message.data.departement_id)
             }
         }
         })
@@ -173,5 +179,15 @@
 <script>
     window.addEventListener("closeModal", event=>{
         $("#modalProd").modal("hide")
+        })
+</script>
+
+<script>
+    window.addEventListener("showEditModal", event=>{
+        $("#editModalProd").modal({"show": true,"backdrop": "static"})
+        })
+
+    window.addEventListener("closeEditModal", event=>{
+        $("#editModalProd").modal("hide")
         })
 </script>

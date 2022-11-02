@@ -29,7 +29,8 @@ class Succursales extends Component
         }
     }
     protected $validationAttributes = [
-        'newSuccursaleName' => 'Succursale'
+        'newSuccursaleName' => 'Succursale',
+        'newDepartement' => 'Département'
     ];
     public function addNewSuccursale(){
         $validated = $this->validate([
@@ -75,7 +76,7 @@ class Succursales extends Component
 
     public function addDepartement(){
         $validated = $this->validate([
-            "newDepartement" => ["required",Rule::unique("departements", "libelle")->where("succursale_id", $this->selectedTypeArticle->id)]
+            "newDepartement" => ["required",Rule::unique("departements", "libelle")->where("succursale_id", $this->selectedSuccursale->id)]
         ]);
         Departement::create([
             "libelle" => $this->newDepartement,
@@ -83,7 +84,26 @@ class Succursales extends Component
         ]); 
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département ajoutée avec succès!"]);
         $this->resetErrorBag();
+        $this->newDepartement = "";
     }
+    public function deleteDepartement(Departement $departement){
+        $departement->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département $departement->libelle supprimé avec succès!"]);
+    }
+    public function showDeleteDep($name,$id){
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
+            'text' => "Vous êtes sur le point de supprimer '$name' de la liste.Voulez vous continuer?",
+            'title' =>"Êtes vous sûr de vouloir continuer?",
+            'type' => "warning",
+            'data' => ["departement_id" => $id]
+        ]]);
+    }
+
+    public function editDepartement(Departement $departement){
+        //$this->selectedSuccursale = $succursale;
+        $this->dispatchBrowserEvent("showEditModal",[]);
+    }
+
 
     public function render()
     {
