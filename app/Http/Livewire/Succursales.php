@@ -80,7 +80,7 @@ class Succursales extends Component
         Departement::create([
             "libelle" => $this->newDepartement,
             "succursale_id" => $this->selectedSuccursale->id
-        ]);
+        ]); 
     }
 
     public function render()
