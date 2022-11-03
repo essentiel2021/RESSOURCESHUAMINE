@@ -17,6 +17,7 @@ class Succursales extends Component
     public $newValue = "";
     public $selectedSuccursale;
     public $newDepartement = "";
+    public $editDepartement = [];
 
     public function toggleShowAddSuccursaleForm(){
         if($this->isAddSuccursale){
@@ -34,7 +35,7 @@ class Succursales extends Component
     ];
     public function addNewSuccursale(){
         $validated = $this->validate([
-            "newSuccursaleName.libelle" => "required|max:50|unique:succursales,libelle"
+            "newSuccursaleName" => "required|max:50|unique:succursales,libelle"
         ]);
         Succursale::create(["libelle"=> $validated["newSuccursaleName"]]);
 
@@ -100,10 +101,30 @@ class Succursales extends Component
     }
 
     public function editDepartement(Departement $departement){
-        //$this->selectedSuccursale = $succursale;
+        $this->editDepartement["libelle"] = $departement->libelle;
+        $this->editDepartement["id"] = $departement->id;
         $this->dispatchBrowserEvent("showEditModal",[]);
     }
 
+    public function updateDepartement(){
+        $this->validate([
+            "editDepartement.libelle" => [
+                "required",
+                Rule::unique("departements", "libelle")->ignore($this->editDepartement["id"])
+            ],
+        ]);
+        Departement::find($this->editDepartement["id"])->update([
+            "libelle" => $this->editDepartement["libelle"]
+        ]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département mise à jour avec succès!"]);
+        $this->closeEditModal();
+    }
+
+    public function closeEditModal(){
+        $this->editDepartement = [];
+        $this->resetErrorBag();
+        $this->dispatchBrowserEvent("closeEditModal", []);
+    }
 
     public function render()
     {
