@@ -17,6 +17,7 @@ class Succursales extends Component
     public $newValue = "";
     public $selectedSuccursale;
     public $newDepartement = "";
+    public $editDepartement = [];
 
     public function toggleShowAddSuccursaleForm(){
         if($this->isAddSuccursale){
@@ -29,11 +30,12 @@ class Succursales extends Component
         }
     }
     protected $validationAttributes = [
-        'newSuccursaleName' => 'Succursale'
+        'newSuccursaleName' => 'Succursale',
+        'newDepartement' => 'Département'
     ];
     public function addNewSuccursale(){
         $validated = $this->validate([
-            "newSuccursaleName.libelle" => "required|max:50|unique:succursales,libelle"
+            "newSuccursaleName" => "required|max:50|unique:succursales,libelle"
         ]);
         Succursale::create(["libelle"=> $validated["newSuccursaleName"]]);
 
@@ -75,13 +77,53 @@ class Succursales extends Component
 
     public function addDepartement(){
         $validated = $this->validate([
-            "newDepartement" => ["required",Rule::unique("departements", "libelle")->where("succursale_id", $this->selectedTypeArticle->id)]
+            "newDepartement" => ["required",Rule::unique("departements", "libelle")->where("succursale_id", $this->selectedSuccursale->id)]
         ]);
         Departement::create([
             "libelle" => $this->newDepartement,
             "succursale_id" => $this->selectedSuccursale->id
         ]); 
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département ajoutée avec succès!"]);
+        $this->resetErrorBag();
+        $this->newDepartement = "";
+    }
+    public function deleteDepartement(Departement $departement){
+        $departement->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département $departement->libelle supprimé avec succès!"]);
+    }
+    public function showDeleteDep($name,$id){
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
+            'text' => "Vous êtes sur le point de supprimer '$name' de la liste.Voulez vous continuer?",
+            'title' =>"Êtes vous sûr de vouloir continuer?",
+            'type' => "warning",
+            'data' => ["departement_id" => $id]
+        ]]);
+    }
+
+    public function editDepartement(Departement $departement){
+        $this->editDepartement["libelle"] = $departement->libelle;
+        $this->editDepartement["id"] = $departement->id;
+        $this->dispatchBrowserEvent("showEditModal",[]);
+    }
+
+    public function updateDepartement(){
+        $this->validate([
+            "editDepartement.libelle" => [
+                "required",
+                Rule::unique("departements", "libelle")->ignore($this->editDepartement["id"])
+            ],
+        ]);
+        Departement::find($this->editDepartement["id"])->update([
+            "libelle" => $this->editDepartement["libelle"]
+        ]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département mise à jour avec succès!"]);
+        $this->closeEditModal();
+    }
+
+    public function closeEditModal(){
+        $this->editDepartement = [];
+        $this->resetErrorBag();
+        $this->dispatchBrowserEvent("closeEditModal", []);
     }
     
     public function render()

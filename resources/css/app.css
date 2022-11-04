@@ -6,3 +6,15 @@
     white-space:nowrap;
     overflow:hidden;
 }
+.modal.fade{
+    background: rgba(0,0,0,0.7);
+}
+
+.modal-backdrop.fade{
+    opacity: 0;
+}
+
+a.btn.btn-db{
+    background-color: #0069d9 !important;
+    border-color: #0062cc !important;
+}
