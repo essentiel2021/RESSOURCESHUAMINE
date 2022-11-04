@@ -8,7 +8,7 @@
                 <div class="d-flex my-4 bg-gray-light p-3">
                     <div class="d-flex flex-grow-1 mr-2">
                         <div class="flex-grow-1 mr-2">
-                            <input type="text" wire:model='editDepartement.libelle' placeholder="Nom du département" class="form-control  @error('editDepartement.libelle') is-invalid @enderror">
+                            <input type="text" wire:keydown.enter='updateDepartement' wire:model='editDepartement.libelle' placeholder="Nom du département" class="form-control  @error('editDepartement.libelle') is-invalid @enderror">
                             @error('editDepartement.libelle')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
