@@ -72,12 +72,12 @@
                   <p>Succursales</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="{{ route("manager.gestsuccursales.succursales")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.succursales") }}">
+              <li class="nav-item">
+                <a href="{{ route("manager.gestsuccursales.services")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.services") }}">
                   <i class="nav-icon fa-solid fa-bars"></i>
-                  <p>Départements</p>
+                  <p>Services</p>
                 </a>
-              </li> --}}
+              </li>
             </ul>
           </li>
         </li>

@@ -8,22 +8,7 @@
 
 <script>
     window.addEventListener("showEditForm",function(e){
-        Swal.fire({
-        title: "Edition d'une succursale",
-        input: 'text',
-        inputValue: e.detail.succursale.libelle,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText:'Modifier <i class="fa fa-check"></i>',
-        cancelButtonText:'Annuler <i class="fa fa-times"></i>',
-        inputValidator: (value) => {
-            if (!value) {
-                return 'Champ obligatoire'
-            }
-            @this.updateSuccursale(e.detail.succursale.id,value)
-        }
-        })
+        
     })
 
      window.addEventListener("showSuccessMessage", event=>{
@@ -51,10 +36,10 @@
         }).then((result) => {
         if (result.isConfirmed) {
             if(event.detail.message.data.succursale_id){
-                @this.deleteSuccursale(event.detail.message.data.succursale_id)
+               
             }
             if(event.detail.message.data.departement_id){
-                @this.deleteDepartement(event.detail.message.data.departement_id)
+                
             }
         }
         })
