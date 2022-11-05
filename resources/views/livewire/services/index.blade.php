@@ -1,7 +1,7 @@
 <div>
-    @include("livewire.succursales.editDep")
+    @include("livewire.services.editServ")
 
-    @include("livewire.succursales.addDep")
+    @include("livewire.services.addServ")
 
     @include("livewire.succursales.list")
 </div>
