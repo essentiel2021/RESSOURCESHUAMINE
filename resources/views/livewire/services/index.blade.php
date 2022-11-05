@@ -3,7 +3,7 @@
 
     @include("livewire.services.addServ")
 
-    @include("livewire.succursales.list")
+    @include("livewire.services.list")
 </div>
 
 <script>
