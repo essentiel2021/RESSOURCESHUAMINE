@@ -34,9 +34,9 @@
                                 <td>{{ $service->departement->succursale->libelle }}</td>
                                 <td class="text-center">{{ optional($service->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">
-                                <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
+                                <button class="btn btn-link" wire:click='editService({{$service->id}})'> <i class="far fa-edit"></i> </button>
                                 {{-- <button class="btn btn-link" wire:click='showProp({{$succursale->id}})'> <i class="fa-solid fa-bars"></i> </button> --}}
-                                <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
+                                <button class="btn btn-link" wire:click="confirmDelete('{{$service->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 {{-- @if(count($succursale->departements) == 0)
                                     <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 @endif --}} 
