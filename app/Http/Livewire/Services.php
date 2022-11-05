@@ -10,4 +10,5 @@ class Services extends Component
     {
         return view('livewire.services');
     }
+    
 }
