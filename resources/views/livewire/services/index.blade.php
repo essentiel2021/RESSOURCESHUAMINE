@@ -1,8 +1,4 @@
 <div>
-    @include("livewire.services.editServ")
-
-    @include("livewire.services.addServ")
-
     @include("livewire.services.list")
 </div>
 
