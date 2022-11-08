@@ -39,7 +39,7 @@
                                 </td>
                             </tr>
                         @endif
-                        @foreach($succursales as $succursale)
+                        @forelse($succursales as $succursale)
                             <tr>
                                 <td>{{ $succursale->libelle }}</td>
                                 <td class="text-center">{{ optional($succursale->created_at)->diffForHumans() }}</td>
@@ -51,7 +51,16 @@
                                 @endif
                                 {{-- <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button> --}}
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5">
+                                    <div class="alert alert-danger">
+                                        <h5><i class="icon fas fa-ban"></i> Information!</h5>
+                                        Aucune donnée en Base.
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

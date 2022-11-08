@@ -4,7 +4,7 @@
             <div class="card-header bg-primary">
                 <h3 class="card-title flex-grow-1"><i class="fa-regular fa-building fa-2x"></i> Services </h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a class="btn btn-link text-white mr-4 d-block"><i class="fa-regular fa-building"></i>Ajouter Servive</a>
+                    <a class="btn btn-link text-white mr-4 d-block" wire:click='showAddServiceModal'><i class="fa-regular fa-building"></i>Ajouter Servive</a>
                     <div class="input-group input-group-md" style="width: 250px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                         <div class="input-group-append">
@@ -27,7 +27,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($services as $service)
+                        @forelse($services as $service)
                             <tr>
                                 <td>{{ $service->libelle }}</td>
                                 <td>{{ $service->departement->libelle }}</td>
@@ -41,7 +41,16 @@
                                     <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 @endif --}} 
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5">
+                                    <div class="alert alert-danger">
+                                        <h5><i class="icon fas fa-ban"></i> Information!</h5>
+                                        Aucune donnée en Base.
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

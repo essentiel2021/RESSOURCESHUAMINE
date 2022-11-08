@@ -1,5 +1,7 @@
 <div>
     @include("livewire.services.list")
+    @include("livewire.services.addService")
+    @include("livewire.services.editService")
 </div>
 
 <script>
@@ -31,11 +33,8 @@
         cancelButtonText: 'Annuler',
         }).then((result) => {
         if (result.isConfirmed) {
-            if(event.detail.message.data.succursale_id){
+            if(event.detail.message.data.service_id){
                
-            }
-            if(event.detail.message.data.departement_id){
-                
             }
         }
         })
@@ -43,22 +42,22 @@
 </script>
 <script>
     window.addEventListener("showModal", event=>{
-        $("#modalProd").modal({"show": true,"backdrop": "static"})
+        $("#modaladdService").modal({"show": true,"backdrop": "static"})
         })
 </script>
 
 <script>
     window.addEventListener("closeModal", event=>{
-        $("#modalProd").modal("hide")
+        $("#modaladdService").modal("hide")
         })
 </script>
 
 <script>
     window.addEventListener("showEditModal", event=>{
-        $("#editModalProd").modal({"show": true,"backdrop": "static"})
+        $("#modaleditService").modal({"show": true,"backdrop": "static"})
         })
 
     window.addEventListener("closeEditModal", event=>{
-        $("#editModalProd").modal("hide")
+        $("#modaleditService").modal("hide")
         })
 </script>
