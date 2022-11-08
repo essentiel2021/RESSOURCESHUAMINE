@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SuccursaleController;
+use App\Http\Livewire\Services;
 use App\Http\Livewire\Succursales;
 use App\Http\Livewire\Users;
 
@@ -52,6 +53,7 @@ Route::group([
         "prefix" => "gestsuccursales",'as' => 'gestsuccursales.'], function(){
 
         Route::get("/succursales", Succursales::class)->name("succursales");
+        Route::get("/services", Services::class)->name("services");
 
     });
 

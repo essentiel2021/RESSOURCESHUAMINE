@@ -12,6 +12,7 @@ class Service extends Model
 {
     use HasFactory;
     use HasSlug;
+    protected $fillable = ['libelle','slug','departement_id'];
     public function departement()
     {
         return $this->belongsTo(Departement::class);
