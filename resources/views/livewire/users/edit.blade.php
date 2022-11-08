@@ -112,7 +112,6 @@
                   {{-- @json($rolePermissions["permissions"]) --}}
                 </tbody>
                 <tfoot>
-                  hello
                 </tfoot>
               </table>
             </table>
