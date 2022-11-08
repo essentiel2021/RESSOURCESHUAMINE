@@ -10,4 +10,5 @@ class Departement extends Component
     {
         return view('livewire.departement');
     }
+    
 }
