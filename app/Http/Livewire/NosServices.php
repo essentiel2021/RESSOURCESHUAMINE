@@ -4,11 +4,11 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Departement extends Component
+class NosServices extends Component
 {
     public function render()
     {
-        return view('livewire.departement');
+        return view('livewire.nos-services');
     }
     
 }

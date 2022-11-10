@@ -46,12 +46,6 @@
                   <p>Comptes</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-fingerprint"></i>
-                  <p>Roles et permissions</p>
-                </a>
-              </li>
             </ul>
           </li>
         </li>
@@ -67,17 +61,23 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route("manager.gestsuccursales.succursales")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.succursales") }}">
+                <a href="{{ route("manager.gestsuccursales.succursales")}}" class="nav-link {{ setMenuClass("manager.gestsuccursales.succursales","active") }}">
                   <i class="nav-icon fa-regular fa-building"></i>
                   <p>Succursales</p>
                 </a>
               </li>
-              <li class="nav-item">
+               <li class="nav-item">
+                <a href="{{ route("manager.gestsuccursales.departements")}}" class="nav-link {{ setMenuClass("manager.gestsuccursales.departements","active") }}">
+                  <i class="nav-icon fa-solid fa-bars"></i>
+                  <p>Départements</p>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
                 <a href="{{ route("manager.gestsuccursales.services")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.services") }}">
                   <i class="nav-icon fa-solid fa-bars"></i>
                   <p>Services</p>
                 </a>
-              </li>
+              </li> --}}
             </ul>
           </li>
         </li>
@@ -100,13 +100,13 @@
                 class="nav-link"
                 >
                   <i class=" nav-icon fas fa-users-cog"></i>
-                  <p>Utilisateurs</p>
+                  <p>Employés</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-fingerprint"></i>
-                  <p>Roles et permissions</p>
+                  <p>Black List</p>
                 </a>
               </li>
             </ul>
