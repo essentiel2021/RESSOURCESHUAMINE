@@ -73,6 +73,7 @@ class Succursales extends Component
     }
     public function closeModal(){
         $this->dispatchBrowserEvent("closeModal",[]);
+        $this->resetErrorBag();
     }
 
     public function addDepartement(){
@@ -85,7 +86,6 @@ class Succursales extends Component
         ]); 
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département ajoutée avec succès!"]);
         $this->resetErrorBag();
-        $this->newDepartement = "";
     }
     public function deleteDepartement(Departement $departement){
         $departement->delete();
