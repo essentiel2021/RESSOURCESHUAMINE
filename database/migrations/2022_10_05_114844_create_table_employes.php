@@ -15,20 +15,24 @@ class CreateTableEmployes extends Migration
     {
         Schema::create('employes', function (Blueprint $table) {
             $table->id();
-            $table->string("matricule")->unique();
+            $table->string("matricule")->unique()->nullable();
             $table->string("nom");
             $table->string("prenom");
             $table->date("dateNaissance");
             $table->char('sexe');
-            $table->string("adresseMail",25);
+            $table->boolean("blackList")->default(0);
+            $table->string("adresseMail",25)->nullable();
             $table->string("telephone1",25);
             $table->string("telephone2",25)->nullable();
+            $table->string('pieceIdentite');
+            $table->string('numeroPieceIdentite');
             $table->integer('numeroCNPS')->nullable();
             $table->integer('numeroDos')->nullable();
             $table->string('personContact');
             $table->string('personContactNum');
-            $table->string("quartier");
-            $table->foreignId("fonction_id")->constrained();
+            $table->string("acteNaissance")->nullable();
+            $table->string("photoPiece")->nullable();
+            $table->string("photo")->nullable();
             $table->timestamps();
         });
     }
@@ -40,9 +44,6 @@ class CreateTableEmployes extends Migration
      */
     public function down()
     {
-        Schema::table("employes", function(Blueprint $table){
-            $table->dropForeign("fonction_id");
-        });
         Schema::dropIfExists('employes');
     }
 }
