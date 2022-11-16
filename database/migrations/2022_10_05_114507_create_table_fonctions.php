@@ -15,13 +15,10 @@ class CreateTableFonctions extends Migration
     {
         Schema::create('fonctions', function (Blueprint $table) {
             $table->id();
-            $table->string("sigle");
             $table->string("libelle");
             $table->string("slug")->nullable();
-            $table->foreignId("service_id")->constrained();
             $table->timestamps();
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -31,9 +28,6 @@ class CreateTableFonctions extends Migration
      */
     public function down()
     {
-        Schema::table("fonctions", function(Blueprint $table){
-            $table->dropForeign("service_id");
-        });
         Schema::dropIfExists('fonctions');
     }
 }

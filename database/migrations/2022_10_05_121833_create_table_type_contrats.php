@@ -15,7 +15,6 @@ class CreateTableTypeContrats extends Migration
     {
         Schema::create('type_contrats', function (Blueprint $table) {
             $table->id();
-            $table->string("sigle");
             $table->string("libelle");
             $table->string("slug")->nullable();
             $table->timestamps();

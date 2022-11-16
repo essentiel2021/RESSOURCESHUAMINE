@@ -26,6 +26,7 @@ class CreateTableEmployes extends Migration
             $table->string("telephone2",25)->nullable();
             $table->string('pieceIdentite');
             $table->string('numeroPieceIdentite');
+            $table->string("quartier");
             $table->integer('numeroCNPS')->nullable();
             $table->integer('numeroDos')->nullable();
             $table->string('personContact');

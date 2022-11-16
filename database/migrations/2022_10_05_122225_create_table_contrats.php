@@ -22,7 +22,6 @@ class CreateTableContrats extends Migration
             $table->boolean("activecontrat")->default(1);
             $table->string("slug",150)->nullable();
             $table->foreignId("type_contrat_id")->constrained();
-            $table->foreignId("employe_id")->constrained();
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -35,11 +34,12 @@ class CreateTableContrats extends Migration
      */
     public function down()
     {
+        
         Schema::table("contrats", function(Blueprint $table){
-            $table->dropForeign("type_contrat_id");
-            $table->dropForeign("employe_id");
-        });
+            $table->dropForeign("contrats_type_contrat_id_foreign");
 
+            $table->dropColumn('type_contrat_id');
+        });
         Schema::dropIfExists('contrats');
     }
 }

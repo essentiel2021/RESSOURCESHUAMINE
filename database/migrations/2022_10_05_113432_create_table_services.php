@@ -15,7 +15,6 @@ class CreateTableServices extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string("sigle");
             $table->string("libelle");
             $table->string("slug")->nullable();
             $table->foreignId("departement_id")->constrained();
@@ -32,7 +31,8 @@ class CreateTableServices extends Migration
     public function down()
     {
         Schema::table("services", function(Blueprint $table){
-            $table->dropForeign("departement_id");
+            $table->dropForeign("services_departement_id_foreign");
+            $table->dropColumn('departement_id');
         });
         Schema::dropIfExists('services');
     }
