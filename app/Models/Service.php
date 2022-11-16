@@ -17,11 +17,6 @@ class Service extends Model
     {
         return $this->belongsTo(Departement::class);
     }
-    public function fonctions()
-    {
-        return $this->hasMany(Fonction::class);
-    }
-
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

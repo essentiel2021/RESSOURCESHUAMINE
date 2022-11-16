@@ -12,7 +12,6 @@ class Contrat extends Model
     public function type()
     {
         return $this->belongsTo(TypeContrat::class);
-
     }
     public function employe(){
         return $this->belongsTo(Employe::class);

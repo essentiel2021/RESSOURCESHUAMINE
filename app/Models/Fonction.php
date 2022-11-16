@@ -13,8 +13,4 @@ class Fonction extends Model
     {
         return $this->belongsTo(Service::class);
     }
-
-    public function employes(){
-        return $this->hasMany(Employe::class);
-    }
 }
