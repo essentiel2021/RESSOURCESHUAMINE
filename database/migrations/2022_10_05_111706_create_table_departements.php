@@ -36,4 +36,5 @@ class CreateTableDepartements extends Migration
         });
         Schema::dropIfExists('departements');
     }
+    
 }

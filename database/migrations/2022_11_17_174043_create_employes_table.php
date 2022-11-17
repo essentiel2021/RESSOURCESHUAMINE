@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableEmployes extends Migration
+class CreateEmployesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,8 +18,10 @@ class CreateTableEmployes extends Migration
             $table->string("matricule")->unique()->nullable();
             $table->string("nom");
             $table->string("prenom");
+            $table->foreignId('situation_matrimoniale_id')->constrained();
             $table->date("dateNaissance");
             $table->char('sexe');
+            $table->string("nombre_enfant");
             $table->boolean("blackList")->default(0);
             $table->string("adresseMail",25)->nullable();
             $table->string("telephone1",25);
@@ -45,6 +47,10 @@ class CreateTableEmployes extends Migration
      */
     public function down()
     {
+        Schema::table("employes", function(Blueprint $table){
+            $table->dropForeign("employes_situation_matrimoniale_id_foreign");
+            $table->dropColumn('situation_matrimoniale_id');
+        });
         Schema::dropIfExists('employes');
     }
 }

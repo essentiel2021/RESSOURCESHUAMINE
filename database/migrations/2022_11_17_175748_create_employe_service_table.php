@@ -32,6 +32,7 @@ class CreateEmployeServiceTable extends Migration
         Schema::table('employe_service', function (Blueprint $table) {
             $table->dropForeign("employe_service_employe_id_foreign");
             $table->dropForeign("employe_service_service_id_foreign");
+
             $table->dropColumn("employe_id");
             $table->dropColumn("service_id");
         });

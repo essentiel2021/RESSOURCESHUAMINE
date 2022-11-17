@@ -3,9 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Employes extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = "bootstrap";
+    
     public $currentPage = PAGELISTEMPLOYE;
     public function render()
     {
