@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Livewire\Users;
+use App\Http\Livewire\ServiceComp;
+use App\Http\Livewire\Succursales;
+use App\Http\Livewire\Departements;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\ForgotController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Livewire\Departements;
-use App\Http\Livewire\ServiceComp;
-use App\Http\Livewire\Succursales;
-use App\Http\Livewire\Users;
+use App\Http\Livewire\Employes;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,18 @@ Route::group([
         Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
     });
 
+});
+
+
+// Le groupe des routes relatives aux assistant uniquement
+Route::group([
+    "middleware" =>["auth","auth.assistant"],
+    "prefix" => "assistant",'as' => 'assistant.'
+],function(){
+    Route::group(
+        ["prefix" => "gestemployes","as" => "gestemployes."],function(){
+            Route::get("/employes",Employes::class)->name("employe.index");
+            Route::get("/blacklist",Employes::class)->name("employe.black");
+        }
+    );
 });

@@ -8,6 +8,11 @@ define("PAGECREATEFORM", "create");
 define("PAGEEDITFORM", "edit");
 define("DEFAULTPASWWORD","Password@9419");
 
+
+define("PAGELISTEMPLOYE", "list");
+define("PAGECREATEFORMTEMPLOYE", "create");
+define("PAGEEDITFORMTEMPLOYE", "edit");
+
 function userFullName(){
     return auth()->user()->lastName . " " . auth()->user()->name;
 }
