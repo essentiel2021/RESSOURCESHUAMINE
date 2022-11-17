@@ -38,7 +38,7 @@
                                 </td>
                                 <td>{{ $user->name }} {{ $user->lastName }}</td>
                                 <td>{{ $user->allRoleNames }}</td>
-                                <td class="text-center"><span class="tag tag-success">{{ $user->created_at->diffForHumans() }}</span></td>
+                                <td class="text-center"><span class="tag tag-success">{{ optional($user->created_at)->diffForHumans() }}</span></td>
                                 <td class="text-center">
                                     <button class="btn btn-link" wire:click='goToEditUser({{$user->id}})'> <i class="far fa-edit"></i></button>
                                     <button class="btn btn-link" wire:click='confirmDelete("{{$user->name}}{{$user->lastName}}",{{$user->id}})'> 

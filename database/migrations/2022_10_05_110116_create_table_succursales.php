@@ -15,7 +15,6 @@ class CreateTableSuccursales extends Migration
     {
         Schema::create('succursales', function (Blueprint $table) {
             $table->id();
-            $table->string("sigle");
             $table->string("libelle");
             $table->string("slug")->nullable();
             $table->timestamps();
