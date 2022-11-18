@@ -16,9 +16,19 @@ class SituationMatrimonialeSeeder extends Seeder
     {
         DB::table("situation_matrimoniales")->insert(
             ["libelle"=> "Célibataire"],
-            ["libelle"=> "Marié(e)"],
+            ["created_at" => now()]
+        );
+        DB::table("situation_matrimoniales")->insert(
             ["libelle"=> "Divorsé(e)"],
+            ["created_at" => now()]
+        );
+        DB::table("situation_matrimoniales")->insert(
+            ["libelle"=> "Marié(e)"],
+            ["created_at" => now()]
+        );
+        DB::table("situation_matrimoniales")->insert(
             ["libelle"=> "Veuf"],
+            ["created_at" => now()]
         );
     }
 }

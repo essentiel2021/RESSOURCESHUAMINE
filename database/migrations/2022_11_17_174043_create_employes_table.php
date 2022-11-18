@@ -25,12 +25,12 @@ class CreateEmployesTable extends Migration
             $table->char('sexe');
             $table->integer("nombre_enfant");
             $table->boolean("blackList")->default(0);
-            $table->string("adresseMail",25)->nullable();
-            $table->string("telephone1",25);
-            $table->string("telephone2",25)->nullable();
+            $table->string("mail",)->nullable();
+            $table->string("telephone1",);
+            $table->string("telephone2")->nullable();
             $table->string('numeroPermis')->nullable();
             $table->string('numeroIdentite');
-            $table->string("quartier");
+            // $table->string("quartier");
             $table->integer('numeroCNPS')->nullable();
             $table->integer('numeroDos')->nullable();
             $table->string('personContact');

@@ -16,13 +16,35 @@ class CommuneSeeder extends Seeder
     {
         DB::table("communes")->insert(
             ["libelle"=> "Marcory"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "Treichville"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "PortBouet"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "Yopougon"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "Adjamé"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "Cocody"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "Bingerville"],
+            ["created_at" => now()]
+        );
+        DB::table("communes")->insert(
             ["libelle"=> "Plateau"],
+            ["created_at" => now()]
         );
     }
 }

@@ -16,8 +16,15 @@ class PieceIdentiteSeeder extends Seeder
     {
         DB::table("piece_identites")->insert(
             ["libelle"=> "Passeport"],
+            ["created_at" => now()]
+        );
+        DB::table("piece_identites")->insert(
             ["libelle"=> "CNI"],
+            ["created_at" => now()]
+        );
+        DB::table("piece_identites")->insert(
             ["libelle"=> "Attestation"],
+            ["created_at" => now()]
         );
     }
 }
