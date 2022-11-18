@@ -1,11 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
-use App\Models\Commune;
 use App\Models\Employe;
-use App\Models\PieceIdentite;
-use App\Models\SituationMatrimoniale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeFactory extends Factory

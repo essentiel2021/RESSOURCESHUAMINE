@@ -3,11 +3,11 @@
         @include("livewire.employes.create")
     @endif
 
-    @if($currentPage == PAGEEDITFORM)
+    @if($currentPage == PAGEEDITFORMTEMPLOYE)
         @include("livewire.employes.edit")
     @endif
 
-    @if($currentPage == PAGEEDITFORMTEMPLOYE)
+    @if($currentPage == )
         @include("livewire.employes.list")
     @endif
 </div>
