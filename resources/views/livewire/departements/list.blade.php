@@ -4,9 +4,9 @@
             <div class="card-header bg-primary">
                 <h3 class="card-title flex-grow-1"><i class="fa-regular fa-building fa-2x"></i> Département </h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a class="btn btn-link text-white mr-4 d-block"><i class="fa-regular fa-building"></i>Ajouter</a>
+                    <a class="btn btn-link text-white mr-4 d-block"><i class="fa-regular fa-building"></i> Nouveau département</a>
                     <div class="input-group input-group-md" style="width: 250px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body table-responsive p-0 table-striped" style="height: 300px;">
+            <div class="card-body table-responsive p-0 table-striped">
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>

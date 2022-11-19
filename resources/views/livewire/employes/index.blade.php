@@ -7,7 +7,7 @@
         @include("livewire.employes.edit")
     @endif
 
-    @if($currentPage == )
+    @if($currentPage == PAGELISTEMPLOYE)
         @include("livewire.employes.list")
     @endif
 </div>

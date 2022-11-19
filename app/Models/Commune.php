@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Commune extends Model
 {
     use HasFactory;
+    protected $table= "communes";
     public function employes(){
        return $this->hasMany(Employe::class);
     }

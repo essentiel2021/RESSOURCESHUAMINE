@@ -12,6 +12,8 @@ use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Livewire\Employes;
+use App\Models\Commune;
+use App\Models\Employe;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +73,12 @@ Route::group([
             Route::get("/blacklist",Employes::class)->name("employe.black");
         }
     );
+});
+
+Route::get("/employes",function (){
+    return Employe::with("commune")->get();
+});
+
+Route::get("/communes",function (){
+    return Commune::get();
 });

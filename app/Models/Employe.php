@@ -10,12 +10,12 @@ class Employe extends Model
     use HasFactory;
 
     public function situation(){
-        return $this->belongsTo(SituationMatrimoniale::class);
+        return $this->belongsTo(SituationMatrimoniale::class,"situation_matrimoniale_id","id");
     }
     public function commune(){
-        return $this->belongsTo(Commune::class);
+        return $this->belongsTo(Commune::class,"commune_id","id");
     }
     public function piece(){
-        return $this->belongsTo(PieceIdentite::class);
+        return $this->belongsTo(PieceIdentite::class,"piece_identite_id","id");
     }
 }
