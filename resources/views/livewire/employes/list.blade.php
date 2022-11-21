@@ -16,6 +16,28 @@
                 </div>
             </div>
             <div class="card-body table-responsive p-0 table-striped" >
+                <div class="d-flex justify-content-end p-4 bg-indigo">
+                    <div class="form-group mr-3">
+                        <label for="filtreType">Filtrer par commune</label>
+                        <select  id="filtreCommune" wire:model="filtreCommune" class="form-control">
+                                <option value=""></option>
+                                @foreach ($communeemployes as $communeemploye)
+                                    <option value="{{ $communeemploye->id}}">{{ $communeemploye->libelle }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group mr-3">
+                        <label for="filtreType">Filtrer par Situation matrimoniale</label>
+                        <select  id="filtreSituaion" wire:model="filtreSituaion" class="form-control">
+                                <option value=""></option>
+                                @foreach ($situationemployes as $situationemploye)
+                                    <option value="{{$situationemploye->id}}">{{ $situationemploye->libelle }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+
+                </div>
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>

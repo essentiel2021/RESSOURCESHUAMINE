@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Commune;
 use App\Models\Employe;
+use App\Models\SituationMatrimoniale;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,15 +16,30 @@ class Employes extends Component
     public $search = "";
     
     public $currentPage = PAGELISTEMPLOYE;
+    public $filtreSituaion = "";
+    public $filtreCommune = "";
     public function render()
     {
         $employeQuery = Employe::query();
-        
-        $employeQuery->where("nom", "LIKE",  "%". $this->search ."%")
+        // $employeQuery->where("blackList ",0);
+        if($this->search != ""){
+            $employeQuery->where("nom", "LIKE",  "%". $this->search ."%")
                     ->orWhere("matricule","LIKE",  "%". $this->search ."%")
                     ->orWhere("prenom","LIKE",  "%". $this->search ."%");
+        }
+        if($this->filtreSituaion != ""){
+            $employeQuery->where("situation_matrimoniale_id ", $this->filtreSituaion);
+        }
 
-        $data = ["employes" => $employeQuery->latest()->paginate(5)];
+        if($this->filtreCommune != ""){
+            $employeQuery->where("commune_id ", $this->filtreCommune);
+        }
+        
+        $data = [
+            "employes" => $employeQuery->latest()->paginate(5),
+            "situationemployes" => SituationMatrimoniale::orderBy("libelle","ASC")->get(),
+            "communeemployes" => Commune::orderBy("libelle","ASC")->get(),
+        ];
         return view('livewire.employes.index',$data)->extends("layouts.master")->section("contenu");
     }
 
