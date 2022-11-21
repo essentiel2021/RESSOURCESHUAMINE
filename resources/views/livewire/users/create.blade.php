@@ -1,5 +1,5 @@
 <div class="row p-4 pt-5">
-             <!-- general form elements -->
+  <!-- general form elements -->
   <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i>Formulaire de création de compte</h3>

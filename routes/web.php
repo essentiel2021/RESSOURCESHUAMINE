@@ -11,6 +11,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Livewire\BlackList;
 use App\Http\Livewire\Employes;
 use App\Models\Commune;
 use App\Models\Employe;
@@ -70,7 +71,7 @@ Route::group([
     Route::group(
         ["prefix" => "gestemployes","as" => "gestemployes."],function(){
             Route::get("/employes",Employes::class)->name("employe.index");
-            Route::get("/blacklist",Employes::class)->name("employe.black");
+            Route::get("/blacklist",BlackList::class)->name("employe.black");
         }
     );
 });

@@ -15,11 +15,13 @@ class BlackList extends Component
     public function render()
     {
         $employeQuery = Employe::query();
-        $employeQuery->where("nom", "LIKE",  "%". $this->search ."%")
-                    ->orWhere("matricule","LIKE",  "%". $this->search ."%")
-                    ->orWhere("prenom","LIKE",  "%". $this->search ."%");
 
-        $data = ["employes" => $employeQuery->latest()->paginate(5)];
-        return view('livewire.blackList.list',$data);
+        if($this->search != ""){
+            $employeQuery->where("nom", "LIKE",  "%". $this->search ."%")
+                ->orWhere("matricule","LIKE",  "%". $this->search ."%")
+                ->orWhere("prenom","LIKE",  "%". $this->search ."%");
+        }
+        $data = ["employes" => $employeQuery->where("blackList",1)->latest()->paginate(5),];
+        return view('livewire.blackList.list',$data)->extends("layouts.master")->section("contenu");
     }
 }

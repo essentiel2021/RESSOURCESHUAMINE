@@ -1,6 +1,6 @@
 <div>
     @if($currentPage == PAGECREATEFORMTEMPLOYE)
-        @include("livewire.employes.create")
+        @include("livewire.employes.add")
     @endif
 
     @if($currentPage == PAGEEDITFORMTEMPLOYE)
