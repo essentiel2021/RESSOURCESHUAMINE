@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Commune;
 use App\Models\Employe;
+use App\Models\PieceIdentite;
 use App\Models\SituationMatrimoniale;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -43,6 +44,7 @@ class Employes extends Component
             "employes" => $employeQuery->latest()->paginate(5),
             "communeemployes" => Commune::orderBy("libelle","ASC")->get(),
             "situationemployes" => SituationMatrimoniale::orderBy("libelle","ASC")->get(),
+            "pieceIdentites" => PieceIdentite::orderBy("libelle","ASC")->get(),
         ];
 
         return view('livewire.employes.index',$data)->extends("layouts.master")->section("contenu");
