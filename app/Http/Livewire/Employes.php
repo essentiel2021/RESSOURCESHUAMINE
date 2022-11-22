@@ -20,6 +20,8 @@ class Employes extends Component
     public $filtreSituaion = "";
     public $filtreCommune = "";
     public $filtreblack = "";
+
+    public $newEmploye = [];
     public function render()
     {
         $employeQuery = Employe::query();
