@@ -45,7 +45,7 @@
                                 <td class="text-center">{{ optional($succursale->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">
                                 <button class="btn btn-link" wire:click='editSuccursale({{$succursale->id}})'> <i class="far fa-edit"></i> </button>
-                                <button class="btn btn-link" wire:click='showProp({{$succursale->id}})'> <i class="fa-solid fa-bars"></i> </button>
+                                <button class="btn btn-link" title= "Ajout Département" wire:click='showProp({{$succursale->id}})'> <i class="fa-solid fa-bars"></i> </button>
                                 @if(count($succursale->departements) == 0)
                                     <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 @endif

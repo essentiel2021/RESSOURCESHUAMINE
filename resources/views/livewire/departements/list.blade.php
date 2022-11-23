@@ -4,7 +4,7 @@
             <div class="card-header bg-primary">
                 <h3 class="card-title flex-grow-1"><i class="fa-regular fa-building fa-2x"></i> Département </h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a class="btn btn-link text-white mr-4 d-block"><i class="fa-regular fa-building"></i> Nouveau département</a>
+                    <a class="btn btn-link text-white mr-4 d-block" wire:click='showDepar()'><i class="fa-regular fa-building"></i>Nouveau département</a>
                     <div class="input-group input-group-md" style="width: 250px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche">
                         <div class="input-group-append">
@@ -32,13 +32,8 @@
                                 <td>{{ $departement->succursale->libelle }}</td>
                                 <td class="text-center">{{ optional($departement->created_at)->diffForHumans() }}</td>
                                 <td class="text-center">
-                                <a href="{{route("manager.gestsuccursales.departements.service",['id'=>$departement->id])}}" title= "Ajout services" class="btn btn-link"> <i class="fa-sharp fa-solid fa-money-check"></i> </a>
-                                <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                                {{-- <button class="btn btn-link" wire:click='showProp({{$succursale->id}})'> <i class="fa-solid fa-bars"></i> </button> --}}
-                                <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
-                                {{-- @if(count($succursale->departements) == 0)
-                                    <button class="btn btn-link" wire:click="confirmDelete('{{$succursale->libelle}}',{{$succursale->id}})"> <i class="far fa-trash-alt"></i> </button>
-                                @endif --}} 
+                                    <a href="{{route("manager.gestsuccursales.departements.service",['id'=>$departement->id])}}" title= "Ajout services" class="btn btn-link"> <i class="fa-sharp fa-solid fa-money-check"></i> </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
