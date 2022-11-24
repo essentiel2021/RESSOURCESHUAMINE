@@ -38,3 +38,27 @@
         $("#editDepartementModal").modal("hide")
         })
 </script>
+
+<script>
+    window.addEventListener("showConfirmMessage", event=>{
+        Swal.fire({
+        title:event.detail.message.title,
+        text: event.detail.message.text,
+        icon:event.detail.message.type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler',
+        }).then((result) => {
+        if (result.isConfirmed) {
+            if(event.detail.message.data.succursale_id){
+                @this.deleteSuccursale(event.detail.message.data.succursale_id)
+            }
+            if(event.detail.message.data.departement_id){
+                @this.deleteDepartement(event.detail.message.data.departement_id)
+            }
+        }
+        })
+    })
+</script>

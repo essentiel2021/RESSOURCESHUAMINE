@@ -34,7 +34,9 @@
                                 <td class="text-center">
                                     <a href="{{route("manager.gestsuccursales.departements.service",['id'=>$departement->id])}}" title= "Ajout services" class="btn btn-link"> <i class="fa-sharp fa-solid fa-money-check"></i> </a>
                                     <button class="btn btn-link" wire:click='editDepartement({{$departement->id}})'> <i class="far fa-edit"></i></button>
-                                    <button class="btn btn-link" wire:click=''><i class="far fa-trash-alt"></i></button>
+                                    @if(count($departement->services) == 0)
+                                        <button class="btn btn-link" wire:click="showDeleteDep('{{$departement->libelle}}',{{$departement->id}})"><i class="far fa-trash-alt"></i></button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
