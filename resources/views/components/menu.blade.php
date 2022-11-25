@@ -7,7 +7,7 @@
             </a>
         </li>
         @can("manager")
-        <li class="nav-item  ">
+        {{-- <li class="nav-item  ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -29,7 +29,7 @@
                 </a>
               </li>
             </ul>
-        </li>
+        </li> --}}
         
         <li class="nav-item {{ setMenuClass('manager.gestcomptes.', 'menu-open') }}">
             <a href="#" class="nav-link {{ setMenuClass('manager.gestcomptes.','active')}}">
@@ -72,12 +72,12 @@
                   <p>Départements</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="{{ route("manager.gestsuccursales.services")}}" class="nav-link {{ setMenuActive("manager.gestsuccursales.services") }}">
+              <li class="nav-item">
+                <a href="{{ route("manager.gestsuccursales.service")}}" class="nav-link {{ setMenuClass("manager.gestsuccursales.service","active") }}">
                   <i class="nav-icon fa-solid fa-bars"></i>
                   <p>Services</p>
                 </a>
-              </li> --}}
+              </li>
             </ul>
           </li>
         </li>

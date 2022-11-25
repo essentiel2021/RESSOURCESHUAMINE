@@ -13,6 +13,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Livewire\BlackList;
 use App\Http\Livewire\Employes;
+use App\Http\Livewire\NosServices;
 use App\Models\Commune;
 use App\Models\Employe;
 
@@ -58,6 +59,7 @@ Route::group([
         Route::get("/succursales", Succursales::class)->name("succursales");
         Route::get("/departements",Departements::class)->name("departements");
         Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
+        Route::get("/services",NosServices::class)->name("service");
     });
 
 });
