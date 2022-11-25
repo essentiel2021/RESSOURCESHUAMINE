@@ -47,8 +47,17 @@ class Departements extends Component
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département mise à jour avec succès!"]);
         $this->fermerModal();
     }
-    public function showDeleteDep(){
-         
+    public function showDeleteDep($name,$id){
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
+            'text' => "Vous êtes sur le point de supprimer '$name' de la liste.Voulez vous continuer?",
+            'title' =>"Êtes vous sûr de vouloir continuer?",
+            'type' => "warning",
+            'data' => ["departement_id" => $id]
+        ]]);
+    }
+    public function deleteDepartement(Departement $departement){
+        $departement->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département $departement->libelle supprimé avec succès!"]);
     }
     public function fermerModal(){
         $this->editDepartement = [];

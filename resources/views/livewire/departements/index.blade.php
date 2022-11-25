@@ -52,12 +52,7 @@
         cancelButtonText: 'Annuler',
         }).then((result) => {
         if (result.isConfirmed) {
-            if(event.detail.message.data.succursale_id){
-                @this.deleteSuccursale(event.detail.message.data.succursale_id)
-            }
-            if(event.detail.message.data.departement_id){
-                @this.deleteDepartement(event.detail.message.data.departement_id)
-            }
+            @this.deleteDepartement(event.detail.message.data.departement_id)
         }
         })
     })
