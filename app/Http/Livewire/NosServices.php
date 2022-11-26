@@ -7,6 +7,16 @@ use Livewire\Component;
 
 class NosServices extends Component
 {
+    public $departement_id = NULL;
+    public $libelle = "";
+
+    public function showService(){
+        $this->dispatchBrowserEvent("showAddModal");
+    }
+    public function closeModal(){
+        $this->resetErrorBag();
+        $this->dispatchBrowserEvent("closeModal",[]);
+    }
     public function addService(){
         
     }

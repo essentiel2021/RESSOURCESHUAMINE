@@ -25,6 +25,8 @@ class Departements extends Component
             "succursale_id"  => 'required',
         ]);
         Departement::create($validateData);
+        $this->libelle = "";
+        $this->succursale_id = NULL;
         $this->closeModal();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte créé avec succès!"]);
     }

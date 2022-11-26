@@ -33,7 +33,7 @@
                         @empty
                             <tr>
                                 <td colspan="5">
-                                    <div class="alert alert-info">
+                                    <div class="alert alert-danger">
                                         <h5><i class="icon fas fa-ban"></i> Information!</h5>
                                         Aucune donnée en Base.
                                     </div>
