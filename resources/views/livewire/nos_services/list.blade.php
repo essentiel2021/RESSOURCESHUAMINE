@@ -4,7 +4,7 @@
             <div class="card-header bg-primary">
                 <h3 class="card-title flex-grow-1"><i class="fa-regular fa-building fa-2x"></i> Services </h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click=''><i class="fa-regular fa-building"></i> Nouveau Servive</a>
+                    <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click='showService()'><i class="fa-regular fa-building"></i> Nouveau Servive</a>
                 </div>
             </div>
             <div class="card-body table-responsive p-0 table-striped" style="height: 300px;">

@@ -22,25 +22,25 @@
 
 <script>
     window.addEventListener("showAddModal", event=>{
-       $("#test").modal({"show": true,"backdrop": "static"})
+       $("#addServiceModal").modal({"show": true,"backdrop": "static"})
        })
        
    window.addEventListener("closeModal", event=>{
-       $("#test").modal("hide")
+       $("#addServiceModal").modal("hide")
        })
 </script>
 
 <script>
    window.addEventListener("showEditModal", event=>{
-       $("#editDepartementModal").modal({"show": true,"backdrop": "static"})
+       $("#editServicetModal").modal({"show": true,"backdrop": "static"})
        })
 
    window.addEventListener("closeEditModal", event=>{
-       $("#editDepartementModal").modal("hide")
+       $("#editServicetModal").modal("hide")
        })
 </script>
 
-<script>
+{{-- <script>
    window.addEventListener("showConfirmMessage", event=>{
        Swal.fire({
        title:event.detail.message.title,
@@ -57,4 +57,4 @@
        }
        })
    })
-</script>
+</script> --}}
