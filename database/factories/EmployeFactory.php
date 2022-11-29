@@ -25,7 +25,7 @@ class EmployeFactory extends Factory
             "dateNaissance" => $this->faker->dateTimeBetween("1980-01-01", "2001-12-30"),
             'sexe' => array_rand(["F", "H"], 1),
             'nombre_enfant' => random_int(1,5),
-            'mail'=> $this->faker->unique()->safeEmail(),
+            'email'=> $this->faker->unique()->safeEmail(),
             'telephone1' => $this->faker->unique()->phoneNumber,
             'telephone2' => $this->faker->unique()->phoneNumber,
             'numeroPermis'=> $this->faker->unique()->bankAccountNumber,

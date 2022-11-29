@@ -70,3 +70,14 @@ function setMenuActive($route){
    }
     return "";
 }
+
+function codeAleatoire($longueur = 7){
+    $chaines = null;
+    $caracteres = '0123456789';
+    $longueurMax = strlen($caracteres);
+    for ($i = 0; $i < $longueur; $i++)
+    {
+        $chaines .= $caracteres[rand(0, $longueurMax - 1)];
+    }
+    return $chaines;
+}
