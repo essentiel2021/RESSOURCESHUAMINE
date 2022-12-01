@@ -39,18 +39,18 @@
             </div>
           </div>
         </div>
-        <div class="icheck-primary">
+        {{-- <div class="icheck-primary">
           <input type="checkbox" id="remember" name="remember" value="1" >
           <label for="remember">Se souvenir de moi</label>
-        </div>
+        </div> --}}
         <div class="row">
             <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
         </div>
       </form>
 
-      <p class="mb-1 mt-3">
+      {{-- <p class="mb-1 mt-3">
         <a href="forgot-password.html">Mot de passe Oublié</a>
-      </p>
+      </p> --}}
     </div>
     <!-- /.login-card-body -->
   </div>
