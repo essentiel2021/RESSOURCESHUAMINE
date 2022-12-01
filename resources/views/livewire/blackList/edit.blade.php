@@ -186,7 +186,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Modifier</button>
-                        <button type="button" wire:click='goToListEmployee()' class="btn btn-danger">Retour à la liste des Employés</button>
+                        <button type="button" wire:click='goToListEmployeeBlackList()' class="btn btn-danger">Retour à la liste des Employés</button>
                     </div>
             </form>
         </div>
