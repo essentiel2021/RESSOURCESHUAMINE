@@ -10,8 +10,22 @@ class BlackList extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
+    public $currentPage = PAGELISTBLACKLIST;
 
     public $search = "";
+    public $editEmploye = [];
+    public function goToListEmployeeBlackList(){
+        $this->currentPage = PAGELISTBLACKLIST;
+    }
+
+    public function goToEditEmployeeBlackList(Employe $employe){
+        $this->currentPage = PAGEEDITFORMBLACKLIST;
+        // $this->editEmploye = $employe->toArray();
+        // $this->resetErrorBag();
+    }
+    public function editBlackList(){
+
+    }
     public function render()
     {
         $employeQuery = Employe::query();

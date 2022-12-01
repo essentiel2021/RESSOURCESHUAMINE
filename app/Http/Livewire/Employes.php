@@ -21,6 +21,7 @@ class Employes extends Component
     public $filtreSituaion = "";
     public $filtreCommune = "";
     public $filtreblack = "";
+    public $black = ""; 
 
     public $newEmploye = [];
     public $editEmploye = [];
@@ -41,9 +42,10 @@ class Employes extends Component
             $employeQuery->where("situation_matrimoniale_id",$this->filtreSituaion);
         }
         
-        if($this->filtreblack != ""){
-            $employeQuery->where("blackList",$this->filtreblack);
-        }
+        // if($this->filtreblack != ""){
+        //    
+        // }
+        $employeQuery->where("blackList",false);
         $data = [
             "employes" => $employeQuery->latest()->paginate(5),
             "communeemployes" => Commune::orderBy("libelle","ASC")->get(),
@@ -129,7 +131,8 @@ class Employes extends Component
     }
     public function editEmployee(){
         $validateAttribute = $this->validate();
-        //dd($this->editEmploye);
+        $validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];
+        //dd($validateAttribute);
         Employe::find($this->editEmploye["id"])->update($validateAttribute["editEmploye"]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
     }

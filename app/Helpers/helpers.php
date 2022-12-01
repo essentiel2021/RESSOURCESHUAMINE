@@ -18,6 +18,8 @@ define("PAGELISTEMPLOYE", "list");
 define("PAGECREATEFORMTEMPLOYE", "create");
 define("PAGEEDITFORMTEMPLOYE", "edit");
 
+define("PAGELISTBLACKLIST", "list");
+define("PAGEEDITFORMBLACKLIST", "edit");
 
 function userFullName(){
     return auth()->user()->lastName . " " . auth()->user()->name;

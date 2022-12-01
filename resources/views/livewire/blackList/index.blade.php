@@ -1,3 +1,9 @@
-<div>
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
+<div wire:ignore.self>
+    @if($currentPage == PAGEEDITFORMBLACKLIST)
+        @include("livewire.blackList.edit")
+    @endif
+
+    @if($currentPage == PAGELISTBLACKLIST)
+        @include("livewire.blackList.list")
+    @endif
 </div>

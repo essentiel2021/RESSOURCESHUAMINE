@@ -37,14 +37,14 @@
                         </select>
                     </div>
 
-                    <div class="form-group mr-3">
+                    {{-- <div class="form-group mr-3">
                         <label for="filtreblack">Filtrer par BlackList</label>
                         <select  id="filtreblack" wire:model="filtreblack" class="form-control">
                             <option value=""></option>
                             <option value="1">Black list</option>
                             <option value="0">Pas Black list</option>
                         </select>
-                    </div>
+                    </div> --}}
 
                 </div>
                 <table class="table table-head-fixed text-nowrap">
@@ -54,9 +54,9 @@
                             <th style="width:20%;" class="text-center">Matricule</th>
                             <th style="width:20%;" class="text-center">Nom</th>
                             <th style="width:20%;" class="text-center">Prenom</th>
-                            <th style="width:20%;"class="text-center">Situation matrimoniale</th>
+                            <th style="width:10%;"class="text-center">Situation matrimoniale</th>
                             <th style="width:10%;"class="text-center">Commune</th>
-                            <th style="width:5%;"class="text-center">Action</th>
+                            <th style="width:15%;"class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>

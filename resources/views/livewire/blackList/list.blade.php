@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-primary">
-                <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i>Liste des employés</h3>
+                <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i>Liste des employés blackList</h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a class="btn btn-link text-white mr-4 d-block"><i class="fas fa-user-plus"></i>Nouveau employé</a>
+                    {{-- <a class="btn btn-link text-white mr-4 d-block"><i class="fas fa-user-plus"></i>Nouveau employé</a> --}}
                     <div class="input-group input-group-md" style="width: 250px;">
                         <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Recherche">
                         <div class="input-group-append">
@@ -38,7 +38,7 @@
                                 <td class="text-center">{{$employe->situation->libelle }}</td>
                                 <td class="text-center">{{$employe->commune->libelle }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-link"> <i class="far fa-edit"></i></button>
+                                    <button class="btn btn-link" wire:click='goToEditEmployeeBlackList({{$employe->id}})'> <i class="far fa-edit"></i></button>
                                     <button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
