@@ -23,6 +23,7 @@ class Employes extends Component
     public $filtreblack = "";
 
     public $newEmploye = [];
+    public $editEmploye = [];
     public function render()
     {
         $employeQuery = Employe::query();
@@ -76,7 +77,24 @@ class Employes extends Component
     public function rules(){
         if($this->currentPage == PAGEEDITFORMTEMPLOYE){
             return [
-               
+                'editEmploye.nom' => 'required',
+                'editEmploye.prenom' => 'required',
+                'editEmploye.situation_matrimoniale_id' => 'required',
+                'editEmploye.commune_id' => 'required|exists:App\Models\Commune,id',
+                'editEmploye.piece_identite_id' => 'required|exists:App\Models\PieceIdentite,id',
+                'editEmploye.email' => ['required', 'email', Rule::unique("employes", "email")->ignore($this->editEmploye['id'])],
+                'editEmploye.sexe' => 'required',
+                'editEmploye.dateNaissance' => 'required',  
+                'editEmploye.nombre_enfant' => 'required',
+                'editEmploye.telephone1' =>['required', 'min:10', Rule::unique("employes", "telephone1")->ignore($this->editEmploye['id'])],
+                'editEmploye.telephone2' => ['required', 'min:10', Rule::unique("employes", "telephone2")->ignore($this->editEmploye['id'])],
+                'editEmploye.quatier' => 'required',
+                'editEmploye.personContact' => 'required',
+                'editEmploye.personContactNum' =>['required',Rule::unique("employes","personContactNum")->ignore($this->editEmploye['id'])], 
+                'editEmploye.numeroIdentite' =>['required',Rule::unique("employes","numeroIdentite")->ignore($this->editEmploye['id'])],
+                'editEmploye.numeroPermis' => ['nullable',Rule::unique("employes","numeroPermis")->ignore($this->editEmploye['id'])],
+                'editEmploye.numeroCNPS' => ['nullable',Rule::unique("employes","numeroCNPS")->ignore($this->editEmploye['id'])],
+                'editEmploye.numeroDos' => ['nullable','numeric',Rule::unique("employes","numeroDos")->ignore($this->editEmploye['id'])],
             ];
         }
         else {
@@ -96,31 +114,44 @@ class Employes extends Component
                 'newEmploye.personContact' => 'required',
                 'newEmploye.personContactNum' => 'required|unique:employes,personContactNum',
                 'newEmploye.numeroIdentite' => 'required|unique:employes,numeroIdentite',
-                'newEmploye.numeroPermis' => 'required|unique:employes,numeroPermis',
-                'newEmploye.numeroCNPS' => 'unique:employes,numeroCNPS',
-                'newEmploye.numeroDos' => 'unique:employes,numeroDos',
+                'newEmploye.numeroPermis' => 'nullable|unique:employes,numeroPermis',
+                'newEmploye.numeroCNPS' => 'nullable|unique:employes,numeroCNPS',
+                'newEmploye.numeroDos' => 'numeric|nullable|unique:employes,numeroDos',
             ];
         }
     }
     public function addEmployee(){
         $validateAttribute = $this->validate();
-        //dd($validateAttribute['newEmploye']);
+        $validateAttribute['newEmploye']["matricule"] = matriculeGenerer();
         Employe::create($validateAttribute['newEmploye']);
-        // User::create($validateAttribute['newUser']);
-        // $this->newUser = [];
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte créé avec succès!"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé créé avec succès!"]);
+        $this->netoyer();
+    }
+    public function editEmployee(){
+        $validateAttribute = $this->validate();
+        //dd($this->editEmploye);
+        Employe::find($this->editEmploye["id"])->update($validateAttribute["editEmploye"]);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
+    }
+    public function netoyer(){
+        $this->newEmploye = [];
+        $this->resetErrorBag();
     }
 
     public function goToAddEmployee(){
         $this->currentPage = PAGECREATEFORMTEMPLOYE;
+        $this->netoyer();
     }
+
 
     public function goToListEmployee(){
         $this->currentPage = PAGELISTEMPLOYE;
     }
 
-    public function goToEditEmployee(){
+    public function goToEditEmployee(Employe $employe){
         $this->currentPage = PAGEEDITFORMTEMPLOYE;
+        $this->editEmploye = $employe->toArray();
+        $this->resetErrorBag();
     }
    
 }

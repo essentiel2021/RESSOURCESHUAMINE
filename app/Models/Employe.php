@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employe extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function situation(){
         return $this->belongsTo(SituationMatrimoniale::class,"situation_matrimoniale_id","id");

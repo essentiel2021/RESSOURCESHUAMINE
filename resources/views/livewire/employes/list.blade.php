@@ -51,9 +51,9 @@
                     <thead>
                         <tr>
                             <th style="width:5%;"></th>
-                            <th style="width:20%;">Matricule</th>
-                            <th style="width:20%;">Nom</th>
-                            <th style="width:20%;">Prenom</th>
+                            <th style="width:20%;" class="text-center">Matricule</th>
+                            <th style="width:20%;" class="text-center">Nom</th>
+                            <th style="width:20%;" class="text-center">Prenom</th>
                             <th style="width:20%;"class="text-center">Situation matrimoniale</th>
                             <th style="width:10%;"class="text-center">Commune</th>
                             <th style="width:5%;"class="text-center">Action</th>
@@ -63,13 +63,13 @@
                         @forelse($employes as $employe)
                             <tr>
                                 <td><img src="{{asset('images/imageplaceholder.png')}}" style="width:60px;height:60px;"></td>
-                                <td>{{$employe->matricule}}</td>
-                                <td>{{$employe->nom}}</td>
-                                <td>{{$employe->prenom}}</td>
+                                <td class="text-center">{{$employe->matricule}}</td>
+                                <td class="text-center">{{$employe->nom}}</td>
+                                <td class="text-center">{{$employe->prenom}}</td>
                                 <td class="text-center">{{$employe->situation->libelle }}</td>
                                 <td class="text-center">{{$employe->commune->libelle }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-link" wire:click='goToEditEmployee()'> <i class="far fa-edit"></i></button>
+                                    <button class="btn btn-link" wire:click='goToEditEmployee({{$employe->id}})'> <i class="far fa-edit"></i></button>
                                     <button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>

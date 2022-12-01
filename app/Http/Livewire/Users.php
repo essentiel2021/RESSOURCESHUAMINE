@@ -150,7 +150,8 @@ class Users extends Component
                 "user_id" => $id
             ]
         ]]);
-
+        //je ne sais meme pas c'est où on est bureau ou quoi,je dans un bureau bizarre je suis un peu gené
+        //test de l'application dans un bruit brudal
     }
     public function deleteUser($id){
         DB::table("user_role")->where("user_id", $id)->delete();

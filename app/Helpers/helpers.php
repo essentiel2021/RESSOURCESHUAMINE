@@ -71,7 +71,7 @@ function setMenuActive($route){
     return "";
 }
 
-function codeAleatoire($longueur = 7){
+function matriculeGenerer($longueur = 6){
     $chaines = null;
     $caracteres = '0123456789';
     $longueurMax = strlen($caracteres);
@@ -79,5 +79,5 @@ function codeAleatoire($longueur = 7){
     {
         $chaines .= $caracteres[rand(0, $longueurMax - 1)];
     }
-    return $chaines;
+    return "ICOGE".$chaines;
 }

@@ -27,8 +27,8 @@
                             <label for="">Sexe</label>
                             <select class="form-control @error('newEmploye.sexe') is-invalid @enderror" wire:model='newEmploye.sexe'>
                                 <option value="">--------------</option>
-                                <option value="M">Homme</option>
-                                <option value="F">Femme</option>
+                                <option value= "M">Homme</option>
+                                <option value= "F">Femme</option>
                             </select>
                             @error("newEmploye.sexe")
                                 <span class="text-danger">{{ $message }}</span>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Créer</button>
-                    <button type="button" wire:click='' class="btn btn-danger">Retour à la liste des comptes </button>
+                    <button type="button" wire:click='goToListEmployee()' class="btn btn-danger">Retour à la liste des Employés</button>
                 </div>
             </form>
         </div>
