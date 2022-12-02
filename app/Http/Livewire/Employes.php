@@ -7,12 +7,14 @@ use App\Models\Employe;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\PieceIdentite;
+use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use App\Models\SituationMatrimoniale;
 
 class Employes extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     protected $paginationTheme = "bootstrap";
 
     public $search = "";
@@ -22,6 +24,7 @@ class Employes extends Component
     public $filtreCommune = "";
     public $filtreblack = "";
     public $black = ""; 
+    public $addPhoto = null;
 
     public $newEmploye = [];
     public $editEmploye = [];
@@ -74,7 +77,6 @@ class Employes extends Component
         'newEmploye.numeroPermis' => 'Numero de permis de conduire',
         'newEmploye.numeroCNPS' => 'Numero CNPS',
         'newEmploye.numeroDos' => 'Numero du dossier',
-
     ];
     public function rules(){
         if($this->currentPage == PAGEEDITFORMTEMPLOYE){
@@ -119,12 +121,18 @@ class Employes extends Component
                 'newEmploye.numeroPermis' => 'nullable|unique:employes,numeroPermis',
                 'newEmploye.numeroCNPS' => 'nullable|unique:employes,numeroCNPS',
                 'newEmploye.numeroDos' => 'numeric|nullable|unique:employes,numeroDos',
+                'addPhoto' => 'image|max:10240'
             ];
         }
     }
     public function addEmployee(){
         $validateAttribute = $this->validate();
+        $imagePath  = "";
+        if($this->addPhoto != null){
+            $imagePath = $this->addPhoto->store('upload','public');
+        }
         $validateAttribute['newEmploye']["matricule"] = matriculeGenerer();
+        $validateAttribute['newEmploye']["photo"] = $imagePath;
         Employe::create($validateAttribute['newEmploye']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé créé avec succès!"]);
         $this->netoyer();

@@ -170,18 +170,18 @@
                             @enderror
                         </div>
                     </div>
-                     <div class="d-flex">
-                        <label class="form-group flex-grow-1 mr-2">BlackList</label>
+                    <div class="d-flex">
+                        <label class="">BlackList</label>
                         <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success form-group flex-grow-1">
                             <input wire:model='editEmploye.blackList' @if($editEmploye["blackList"])checked @endif type="checkbox" class="custom-control-input" id="customSwitch{{ $editEmploye["id"]}}">
                             <label class="custom-control-label" for="customSwitch{{ $editEmploye["id"]}}">{{ $editEmploye["blackList"] == 0 ? "Activé" : "Désactivé" }}</label>
                         </div>
                         <div class="form-group flex-grow-1">
-                            {{-- <label>Numero de dossier</label>
+                            <label>Numero de dossier</label>
                             <input type="number" wire:model='editEmploye.numeroDos' class="form-control" placeholder="Numero de dossier">
                             @error("editEmploye.numeroDos")
                                 <span class="text-danger">{{ $message }}</span>
-                            @enderror --}}
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -192,6 +192,10 @@
             </form>
         </div>
        
+    </div>
+    <div class="col-md-6" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden;">
+        <div class="row">Papa</div>
+        <div class="row">jathniel</div>
     </div>
 </div>
 

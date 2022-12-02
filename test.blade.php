@@ -101,3 +101,8 @@
             <!-- /.card-body -->
         </div>
     </div>
+
+
+    @if ($photo)
+        <img src="{{ $photo->temporaryUrl() }}">
+    @endif

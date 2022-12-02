@@ -1,10 +1,11 @@
-<div class="row p-4 pt-5">
-    <div class="col-md-6">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i></h3>
-            </div>
-            <form role="form" wire:submit.prevent="addEmployee()">
+<form role="form" wire:submit.prevent="addEmployee()">
+    <div class="row p-4 pt-5">
+        <div class="col-md-6">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i></h3>
+                </div>
+                <div>
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
@@ -169,15 +170,34 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="name">Photo identité</label>
+                            <input type="file" wire:model='addPhoto' class="form-control">
+
+                            @error("addPhoto")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden">
+                            @if ($addPhoto)
+                                <img src="{{ $addPhoto->temporaryUrl() }}" style="height:200px; width:200px;">
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Créer</button>
                     <button type="button" wire:click='goToListEmployee()' class="btn btn-danger">Retour à la liste des Employés</button>
                 </div>
-            </form>
+            </div>
         </div>
-       
+        <div class="col-md-6">
+            
+        </div>
     </div>
-</div>
+</form>
 
 

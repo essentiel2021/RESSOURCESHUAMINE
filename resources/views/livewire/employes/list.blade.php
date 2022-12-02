@@ -62,7 +62,11 @@
                     <tbody>
                         @forelse($employes as $employe)
                             <tr>
-                                <td><img src="{{asset('images/imageplaceholder.png')}}" style="width:60px;height:60px;"></td>
+                                @if($employe->photo != "" || $employe->photo != null)
+                                    <td><img src="{{asset('storage/'.$employe->photo)}}" style="width:100px;height:100px;"></td>
+                                @else
+                                    <td><img src="{{asset('images/imageplaceholder.png')}}" style="width:100px;height:100px;"></td>
+                                @endif
                                 <td class="text-center">{{$employe->matricule}}</td>
                                 <td class="text-center">{{$employe->nom}}</td>
                                 <td class="text-center">{{$employe->prenom}}</td>
