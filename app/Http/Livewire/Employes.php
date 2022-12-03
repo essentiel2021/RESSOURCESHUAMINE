@@ -10,6 +10,8 @@ use App\Models\PieceIdentite;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use App\Models\SituationMatrimoniale;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class Employes extends Component
 {
@@ -130,12 +132,26 @@ class Employes extends Component
         $imagePath  = "";
         if($this->addPhoto != null){
             $imagePath = $this->addPhoto->store('upload','public');
+
+            $image = Image::make(public_path("storage/".$imagePath))->fit(200,200);
+            $image->save();
         }
         $validateAttribute['newEmploye']["matricule"] = matriculeGenerer();
         $validateAttribute['newEmploye']["photo"] = $imagePath;
         Employe::create($validateAttribute['newEmploye']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé créé avec succès!"]);
         $this->netoyer();
+    }
+    protected function cleanupOldUploads()
+    {
+        $storage = Storage::disk("local");
+        foreach($storage->allFiles("livewire-tmp") as $pathFilleName){
+            if(! $storage->exists($pathFilleName)) continue;
+            $fiveSecondsDelete = now()->subSeconds(5)->timestamp;
+            if($fiveSecondsDelete > $storage->lastModified($pathFilleName)){
+                $storage->delete($pathFilleName);
+            }
+        }
     }
     public function editEmployee(){
         $validateAttribute = $this->validate();
@@ -146,6 +162,7 @@ class Employes extends Component
     }
     public function netoyer(){
         $this->newEmploye = [];
+        $this->addPhoto = null;
         $this->resetErrorBag();
     }
 
