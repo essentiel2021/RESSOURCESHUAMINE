@@ -171,22 +171,39 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                        <label class="">BlackList</label>
-                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success form-group flex-grow-1">
-                            <input wire:model='editEmploye.blackList' @if($editEmploye["blackList"])checked @endif type="checkbox" class="custom-control-input" id="customSwitch{{ $editEmploye["id"]}}">
-                            <label class="custom-control-label" for="customSwitch{{ $editEmploye["id"]}}">{{ $editEmploye["blackList"] == 0 ? "Activé" : "Désactivé" }}</label>
-                        </div>
-                        <div class="form-group flex-grow-1">
-                            <label>Numero de dossier</label>
-                            <input type="number" wire:model='editEmploye.numeroDos' class="form-control" placeholder="Numero de dossier">
-                            @error("editEmploye.numeroDos")
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="name">Photo identité</label>
+                            <input type="file" wire:model='editPhoto' class="form-control">
+
+                            @error("editPhoto")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="form-group flex-grow-1" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden">
+                            @if (isset($editPhoto))
+                                <img src="{{ $editPhoto->temporaryUrl() }}" style="height:200px; width:200px;">
+                            @else
+                                <img src="{{ asset($editEmploye["photo"]) }}" style="height:200px; width:200px;">
+                            @endif 
+                        </div>
+                        
                     </div>
+                    @isset($editPhoto)
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhoto', null)">Réinitialiser</button>
+                            </div>
+                        </div>
+                    @endisset 
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Modifier</button>
+                    <div class="d-inline">
+                        @if($editHasChanged)
+                            <button type="submit" class="btn btn-primary mr-2">Modifier</button>
+                        @endif
+                    </div>
+                    {{-- <button type="submit" class="btn btn-primary mr-2">Modifier</button> --}}
                     <button type="button" wire:click='goToListEmployee()' class="btn btn-danger">Retour à la liste des Employés</button>
                 </div>
             </form>
@@ -198,7 +215,5 @@
         <div class="row">jathniel</div>
     </div>
 </div>
-
-
 
 </div>

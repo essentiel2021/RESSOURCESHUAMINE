@@ -24,12 +24,15 @@ class Employes extends Component
     public $currentPage = PAGELISTEMPLOYE;
     public $filtreSituaion = "";
     public $filtreCommune = "";
-    public $filtreblack = "";
-    public $black = ""; 
     public $addPhoto = null;
+    public $editPhoto = null;
 
     public $newEmploye = [];
     public $editEmploye = [];
+
+    public $editHasChanged = false;
+    public $editEmployeOldValues = [];
+
     public function render()
     {
         $employeQuery = Employe::query();
@@ -47,9 +50,6 @@ class Employes extends Component
             $employeQuery->where("situation_matrimoniale_id",$this->filtreSituaion);
         }
         
-        // if($this->filtreblack != ""){
-        //    
-        // }
         $employeQuery->where("blackList",false);
         $data = [
             "employes" => $employeQuery->latest()->paginate(5),
@@ -57,6 +57,9 @@ class Employes extends Component
             "situationemployes" => SituationMatrimoniale::orderBy("libelle","ASC")->get(),
             "pieceIdentites" => PieceIdentite::orderBy("libelle","ASC")->get(),
         ];
+        if ($this->editEmploye != []) {
+            $this->showUpadteButton();
+        }
 
         return view('livewire.employes.index',$data)->extends("layouts.master")->section("contenu");
     }
@@ -129,11 +132,12 @@ class Employes extends Component
     }
     public function addEmployee(){
         $validateAttribute = $this->validate();
-        $imagePath  = "";
-        if($this->addPhoto != null){
-            $imagePath = $this->addPhoto->store('upload','public');
+        $imagePath  = "images/imageplaceholder.png";
 
-            $image = Image::make(public_path("storage/".$imagePath))->fit(200,200);
+        if($this->addPhoto != null){
+            $path = $this->addPhoto->store('upload','public');
+            $imagePath = "storage/".$path;
+            $image = Image::make(public_path($imagePath))->fit(200,200);
             $image->save();
         }
         $validateAttribute['newEmploye']["matricule"] = matriculeGenerer();
@@ -155,8 +159,19 @@ class Employes extends Component
     }
     public function editEmployee(){
         $validateAttribute = $this->validate();
-        $validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];
-        //dd($validateAttribute);
+        //$validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];
+        $employe = Employe::find($this->editEmploye["id"]);
+        if($this->editPhoto != null){
+            $path = $this->editPhoto->store("upload", "public");
+            $imagePath = "storage/".$path;
+            $image = Image::make(public_path($imagePath))->fit(200, 200);
+
+            $image->save();
+
+            Storage::disk("local")->delete(str_replace("storage/", "public/", $employe->photo));
+
+        }
+        $validateAttribute["editEmploye"]["photo"] = $imagePath;
         Employe::find($this->editEmploye["id"])->update($validateAttribute["editEmploye"]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
     }
@@ -164,6 +179,33 @@ class Employes extends Component
         $this->newEmploye = [];
         $this->addPhoto = null;
         $this->resetErrorBag();
+    }
+    public function showUpadteButton(){
+        $this->editHasChanged = false;
+        if (
+            $this->editEmploye["nom"] != $this->editEmployeOldValues["nom"] ||
+            $this->editEmploye["prenom"] != $this->editEmployeOldValues["prenom"] ||
+            $this->editEmploye["situation_matrimoniale_id"] != $this->editEmployeOldValues["situation_matrimoniale_id"] ||
+            $this->editEmploye["commune_id"] != $this->editEmployeOldValues["commune_id"] ||
+            $this->editEmploye["piece_identite_id"] != $this->editEmployeOldValues["piece_identite_id"] ||
+            $this->editEmploye["dateNaissance"] != $this->editEmployeOldValues["dateNaissance"] ||
+            $this->editEmploye["sexe"] != $this->editEmployeOldValues["sexe"] ||
+            $this->editEmploye["nombre_enfant"] != $this->editEmployeOldValues["nombre_enfant"] ||
+            $this->editEmploye["telephone1"] != $this->editEmployeOldValues["telephone1"] ||
+            $this->editEmploye["telephone2"] != $this->editEmployeOldValues["telephone2"] ||
+            $this->editEmploye["quatier"] != $this->editEmployeOldValues["quatier"] ||
+            $this->editEmploye["numeroPermis"] != $this->editEmployeOldValues["numeroPermis"] ||
+            $this->editEmploye["numeroIdentite"] != $this->editEmployeOldValues["numeroIdentite"] ||
+            $this->editEmploye["numeroCNPS"] != $this->editEmployeOldValues["numeroCNPS"] ||
+            $this->editEmploye["numeroDos"] != $this->editEmployeOldValues["numeroDos"] ||
+            $this->editEmploye["personContact"] != $this->editEmployeOldValues["personContact"] ||
+            $this->editEmploye["personContactNum"] != $this->editEmployeOldValues["personContactNum"] ||
+            $this->editEmploye["email"] != $this->editEmployeOldValues["email"] ||
+            $this->editEmploye["acteNaissance"] != $this->editEmployeOldValues["acteNaissance"] ||
+            $this->editPhoto != null 
+        ) {
+            $this->editHasChanged  = true;
+        }
     }
 
     public function goToAddEmployee(){
@@ -179,6 +221,8 @@ class Employes extends Component
     public function goToEditEmployee(Employe $employe){
         $this->currentPage = PAGEEDITFORMTEMPLOYE;
         $this->editEmploye = $employe->toArray();
+        $this->editEmployeOldValues = $this->editEmploye;
+
         $this->resetErrorBag();
     }
    

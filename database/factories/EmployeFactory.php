@@ -33,7 +33,7 @@ class EmployeFactory extends Factory
             'numeroCNPS' => $this->faker->unique()->randomNumber(5, true),
             'personContactNum'=> $this->faker->unique()->phoneNumber,
             'personContact' => $this->faker->name(), 
-            'photo' => "",
+            'photo' => 'images/imageplaceholder.png',
         ];
     }
 }
