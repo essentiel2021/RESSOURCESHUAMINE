@@ -102,18 +102,3 @@
         </div>
     </div>
 
-
-    @if ($photo)
-        <img src="{{ $photo->temporaryUrl() }}">
-    @endif
-
-    @isset($editPhoto)
-        <div>
-            <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhoto', null)">Réinitialiser</button>    
-        </div> 
-    @endisset
-
-
-     
-                         
-    @endif

@@ -195,7 +195,57 @@
                                 <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhoto', null)">Réinitialiser</button>
                             </div>
                         </div>
-                    @endisset 
+                    @endisset
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="name">Photo CNI</label>
+                            <input type="file" wire:model='editPhotoPiece' class="form-control">
+
+                            @error("editPhotoPiece")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden">
+                            @if (isset($editPhotoPiece))
+                                <img src="{{ $editPhotoPiece->temporaryUrl() }}" style="height:200px; width:200px;">
+                            @else
+                                <img src="{{ asset($editEmploye["photoPiece"]) }}" style="height:200px; width:200px;">
+                            @endif 
+                        </div>
+                    </div> 
+                     @isset($editPhotoPiece)
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhotoPiece', null)">Réinitialiser</button>
+                            </div>
+                        </div>
+                    @endisset
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="name">Photo de l'acte de naissance</label>
+                            <input type="file" wire:model='editPhotoActe' class="form-control">
+
+                            @error("editPhotoActe")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden">
+                            @if (isset($editPhotoActe))
+                                <img src="{{ $editPhotoActe->temporaryUrl() }}" style="height:200px; width:200px;">
+                            @else
+                                <img src="{{ asset($editEmploye["acteNaissance"]) }}" style="height:200px; width:200px;">
+                            @endif 
+                        </div>
+                    </div> 
+                     @isset($editPhotoActe)
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhotoPiece', null)">Réinitialiser</button>
+                            </div>
+                        </div>
+                    @endisset
                 </div>
                 <div class="card-footer">
                     <div class="d-inline">
@@ -203,7 +253,6 @@
                             <button type="submit" class="btn btn-primary mr-2">Modifier</button>
                         @endif
                     </div>
-                    {{-- <button type="submit" class="btn btn-primary mr-2">Modifier</button> --}}
                     <button type="button" wire:click='goToListEmployee()' class="btn btn-danger">Retour à la liste des Employés</button>
                 </div>
             </form>

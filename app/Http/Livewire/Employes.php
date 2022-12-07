@@ -27,6 +27,12 @@ class Employes extends Component
     public $addPhoto = null;
     public $editPhoto = null;
 
+    public $addPhotoPiece = null ;
+    public $editPhotoPiece = null;
+
+    public $addPhotoActe = null;
+    public $editPhotoActe = null;
+
     public $newEmploye = [];
     public $editEmploye = [];
 
@@ -126,7 +132,9 @@ class Employes extends Component
                 'newEmploye.numeroPermis' => 'nullable|unique:employes,numeroPermis',
                 'newEmploye.numeroCNPS' => 'nullable|unique:employes,numeroCNPS',
                 'newEmploye.numeroDos' => 'numeric|nullable|unique:employes,numeroDos',
-                'addPhoto' => 'image|max:10240'
+                'addPhoto' => 'image|max:10240',
+                'addPhotoPiece' => 'image|max:10240',
+                'addPhotoActe' => 'image|max:10240',
             ];
         }
     }
@@ -140,23 +148,40 @@ class Employes extends Component
             $image = Image::make(public_path($imagePath))->fit(200,200);
             $image->save();
         }
+        if($this->addPhotoPiece != null){
+            $path1 = $this->addPhotoPiece->store('test','public');
+            $imagePath1 = "storage/".$path1;
+            $image1 = Image::make(public_path($imagePath1))->fit(200,200);
+            $image1->save();
+        }
+
+        if ($this->addPhotoActe != null) {
+            $path2 = $this->addPhotoPiece->store('acteNaissance','public');
+            $imagePath2 = "storage/".$path2;
+            $image2 = Image::make(public_path($imagePath2))->fit(200,200);
+            $image2->save();
+        }
+        
         $validateAttribute['newEmploye']["matricule"] = matriculeGenerer();
         $validateAttribute['newEmploye']["photo"] = $imagePath;
+        $validateAttribute['newEmploye']["photoPiece"] = $imagePath1;
+        $validateAttribute['newEmploye']["acteNaissance"] = $imagePath2;
+        //dd($validateAttribute['newEmploye']);
         Employe::create($validateAttribute['newEmploye']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé créé avec succès!"]);
         $this->netoyer();
     }
-    protected function cleanupOldUploads()
-    {
-        $storage = Storage::disk("local");
-        foreach($storage->allFiles("livewire-tmp") as $pathFilleName){
-            if(! $storage->exists($pathFilleName)) continue;
-            $fiveSecondsDelete = now()->subSeconds(5)->timestamp;
-            if($fiveSecondsDelete > $storage->lastModified($pathFilleName)){
-                $storage->delete($pathFilleName);
-            }
-        }
-    }
+    // protected function cleanupOldUploads()
+    // {
+    //     $storage = Storage::disk("local");
+    //     foreach($storage->allFiles("livewire-tmp") as $pathFilleName){
+    //         if(! $storage->exists($pathFilleName)) continue;
+    //         $fiveSecondsDelete = now()->subSeconds(5)->timestamp;
+    //         if($fiveSecondsDelete > $storage->lastModified($pathFilleName)){
+    //             $storage->delete($pathFilleName);
+    //         }
+    //     }
+    // }
     public function editEmployee(){
         $validateAttribute = $this->validate();
         //$validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];
@@ -171,6 +196,13 @@ class Employes extends Component
             Storage::disk("local")->delete(str_replace("storage/", "public/", $employe->photo));
 
         }
+        if($this->editPhotoPiece != null){
+            $path1 = $this->editPhotoPiece->store('test','public');
+            $imagePath1 = "storage/".$path1;
+            $image1 = Image::make(public_path($imagePath1))->fit(200,200);
+            $image1->save();
+            Storage::disk("local")->delete(str_replace("storage/", "public/", $employe->photoPiece));
+        }
         $validateAttribute["editEmploye"]["photo"] = $imagePath;
         Employe::find($this->editEmploye["id"])->update($validateAttribute["editEmploye"]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
@@ -178,6 +210,8 @@ class Employes extends Component
     public function netoyer(){
         $this->newEmploye = [];
         $this->addPhoto = null;
+        $this->addPhotoPiece = null;
+        $this->addPhotoActe = null;
         $this->resetErrorBag();
     }
     public function showUpadteButton(){
@@ -202,7 +236,9 @@ class Employes extends Component
             $this->editEmploye["personContactNum"] != $this->editEmployeOldValues["personContactNum"] ||
             $this->editEmploye["email"] != $this->editEmployeOldValues["email"] ||
             $this->editEmploye["acteNaissance"] != $this->editEmployeOldValues["acteNaissance"] ||
-            $this->editPhoto != null 
+            $this->editPhoto != null||
+            $this->editPhotoPiece != null ||
+            $this->editPhotoActe != null
         ) {
             $this->editHasChanged  = true;
         }

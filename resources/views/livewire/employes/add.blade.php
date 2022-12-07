@@ -1,6 +1,6 @@
 <form role="form" wire:submit.prevent="addEmployee()">
     <div class="row p-4 pt-5">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i></h3>
@@ -185,6 +185,36 @@
                             @endif
                         </div>
                     </div>
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="name">Photo CNI</label>
+                            <input type="file" wire:model='addPhotoPiece' class="form-control">
+
+                            @error("addPhotoPiece")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden">
+                            @if ($addPhotoPiece)
+                                <img src="{{ $addPhotoPiece->temporaryUrl() }}" style="height:200px; width:200px;">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="name">Photo Acte de Naissance</label>
+                            <input type="file" wire:model='addPhotoActe' class="form-control">
+
+                            @error("addPhotoActe")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1" style="border: 1px solid #d0d1d3; border-radius: 20px; height: 200px; width:200px; overflow:hidden">
+                            @if ($addPhotoActe)
+                                <img src="{{ $addPhotoActe->temporaryUrl() }}" style="height:200px; width:200px;">
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 
                 </div>
@@ -194,7 +224,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             
         </div>
     </div>
