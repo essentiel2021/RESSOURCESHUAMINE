@@ -102,3 +102,56 @@
         </div>
     </div>
 
+
+
+    @isset($editPhoto)
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhoto', null)">Réinitialiser</button>
+            </div>
+        </div>
+    @endisset
+
+
+    @isset($editPhotoPiece)
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhotoPiece', null)">Réinitialiser</button>
+                            </div>
+                        </div>
+                    @endisset
+
+
+ @isset($editPhotoActe)
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhotoActe', null)">Réinitialiser</button>
+                            </div>
+                        </div>
+                    @endisset
+
+
+
+
+ $path1 = $this->editPhotoPiece->store('test','public');
+            $imagePath1 = "storage/".$path1;
+            $validateAttribute["editEmploye"]["photoPiece"] = $imagePath1;
+            $image1 = Image::make(public_path($imagePath1))->fit(200,200);
+            $image1->save();
+            Storage::disk("local")->delete(str_replace("storage/", "public/test", $employe->photoPiece));
+
+
+
+
+$path2 = $this->addPhotoPiece->store('acteNaissance','public');
+            $imagePath2 = "storage/".$path2;
+            $validateAttribute["editEmploye"]["acteNaissance"] = $imagePath2;
+            $image2 = Image::make(public_path($imagePath2))->fit(200,200);
+            $image2->save();
+            Storage::disk("local")->delete(str_replace("storage/", "public/acteNaissance", $employe->acteNaissance));
+
+
+//$validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];

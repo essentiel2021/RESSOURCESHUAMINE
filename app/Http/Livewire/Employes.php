@@ -110,6 +110,9 @@ class Employes extends Component
                 'editEmploye.numeroPermis' => ['nullable',Rule::unique("employes","numeroPermis")->ignore($this->editEmploye['id'])],
                 'editEmploye.numeroCNPS' => ['nullable',Rule::unique("employes","numeroCNPS")->ignore($this->editEmploye['id'])],
                 'editEmploye.numeroDos' => ['nullable','numeric',Rule::unique("employes","numeroDos")->ignore($this->editEmploye['id'])],
+                // 'addPhoto' => 'image|max:10240',
+                // 'addPhotoPiece' => 'image|max:10240',
+                // 'addPhotoActe' => 'image|max:10240',
             ];
         }
         else {
@@ -141,6 +144,8 @@ class Employes extends Component
     public function addEmployee(){
         $validateAttribute = $this->validate();
         $imagePath  = "images/imageplaceholder.png";
+        $imagePieceIdentitePath = "images/imageplaceholder.png";
+        $imageActeNaissancePath = "images/imageplaceholder.png";
 
         if($this->addPhoto != null){
             $path = $this->addPhoto->store('upload','public');
@@ -149,71 +154,76 @@ class Employes extends Component
             $image->save();
         }
         if($this->addPhotoPiece != null){
-            $path1 = $this->addPhotoPiece->store('test','public');
-            $imagePath1 = "storage/".$path1;
-            $image1 = Image::make(public_path($imagePath1))->fit(200,200);
-            $image1->save();
+            $pathPieceIdentite = $this->addPhotoPiece->store('pieceIdentite','public');
+            $imagePieceIdentitePath = "storage/".$pathPieceIdentite;
+            $imagePieceIdentite = Image::make(public_path($imagePieceIdentitePath));
+            $imagePieceIdentite->save();
         }
 
         if ($this->addPhotoActe != null) {
-            $path2 = $this->addPhotoPiece->store('acteNaissance','public');
-            $imagePath2 = "storage/".$path2;
-            $image2 = Image::make(public_path($imagePath2))->fit(200,200);
-            $image2->save();
+            $pathActeNaissance = $this->addPhotoPiece->store('acteNaissance','public');
+            $imageActeNaissancePath = "storage/".$pathActeNaissance;
+            $imageActeNaissance = Image::make($imageActeNaissancePath);
+            $imageActeNaissance->save();
         }
-        
         $validateAttribute['newEmploye']["matricule"] = matriculeGenerer();
         $validateAttribute['newEmploye']["photo"] = $imagePath;
-        $validateAttribute['newEmploye']["photoPiece"] = $imagePath1;
-        $validateAttribute['newEmploye']["acteNaissance"] = $imagePath2;
-        //dd($validateAttribute['newEmploye']);
+        $validateAttribute['newEmploye']["photoPiece"] = $imagePieceIdentitePath;
+        $validateAttribute['newEmploye']["acteNaissance"] = $imageActeNaissancePath;
         Employe::create($validateAttribute['newEmploye']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé créé avec succès!"]);
-        $this->netoyer();
-    }
-    // protected function cleanupOldUploads()
-    // {
-    //     $storage = Storage::disk("local");
-    //     foreach($storage->allFiles("livewire-tmp") as $pathFilleName){
-    //         if(! $storage->exists($pathFilleName)) continue;
-    //         $fiveSecondsDelete = now()->subSeconds(5)->timestamp;
-    //         if($fiveSecondsDelete > $storage->lastModified($pathFilleName)){
-    //             $storage->delete($pathFilleName);
-    //         }
-    //     }
-    // }
-    public function editEmployee(){
-        $validateAttribute = $this->validate();
-        //$validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];
-        $employe = Employe::find($this->editEmploye["id"]);
-        if($this->editPhoto != null){
-            $path = $this->editPhoto->store("upload", "public");
-            $imagePath = "storage/".$path;
-            $image = Image::make(public_path($imagePath))->fit(200, 200);
 
-            $image->save();
-
-            Storage::disk("local")->delete(str_replace("storage/", "public/", $employe->photo));
-
-        }
-        if($this->editPhotoPiece != null){
-            $path1 = $this->editPhotoPiece->store('test','public');
-            $imagePath1 = "storage/".$path1;
-            $image1 = Image::make(public_path($imagePath1))->fit(200,200);
-            $image1->save();
-            Storage::disk("local")->delete(str_replace("storage/", "public/", $employe->photoPiece));
-        }
-        $validateAttribute["editEmploye"]["photo"] = $imagePath;
-        Employe::find($this->editEmploye["id"])->update($validateAttribute["editEmploye"]);
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
-    }
-    public function netoyer(){
         $this->newEmploye = [];
         $this->addPhoto = null;
         $this->addPhotoPiece = null;
         $this->addPhotoActe = null;
-        $this->resetErrorBag();
+        
     }
+    protected function cleanupOldUploads()
+    {
+        $storage = Storage::disk("local");
+        foreach($storage->allFiles("livewire-tmp") as $pathFilleName){
+            if(! $storage->exists($pathFilleName)) continue;
+            $fiveSecondsDelete = now()->subSeconds(60)->timestamp;
+            if($fiveSecondsDelete > $storage->lastModified($pathFilleName)){
+                $storage->delete($pathFilleName);
+            }
+        }
+    }
+    public function editEmployee(){
+        $this->validate();
+        $employe = Employe::find($this->editEmploye["id"]);
+        $employe->fill($this->editEmploye);
+        if($this->editPhoto != null){
+            $path = $this->editPhoto->store("upload", "public");
+            $imagePath = "storage/".$path;
+            $image = Image::make(public_path($imagePath))->fit(200, 200);
+            $image->save();
+            Storage::disk("local")->delete(str_replace("storage/", "public/upload", $employe->photo));
+            $employe->photo = $imagePath;
+        }
+        if($this->editPhotoPiece != null){
+            $pathPieceIdentite = $this->editPhotoPiece->store('pieceIdentite','public');
+            $imagePieceIdentitePath = "storage/".$pathPieceIdentite;
+            $imagePieceIdentite = Image::make(public_path($imagePieceIdentitePath));
+            $imagePieceIdentite->save();
+            Storage::disk("local")->delete(str_replace("storage/", "public/pieceIdentite", $employe->photoPiece));
+            $employe->photoPiece = $imagePieceIdentitePath;
+        }
+        if ($this->editPhotoActe != null) {
+            $pathActeNaissance = $this->editPhotoActe->store('acteNaissance','public');
+            $imageActeNaissancePath = "storage/".$pathActeNaissance;
+            $imageActeNaissance = Image::make($imageActeNaissancePath);
+            $imageActeNaissance->save();
+            Storage::disk("local")->delete(str_replace("storage/", "public/acteNaissance", $employe->acteNaissance));
+            $employe->acteNaissance = $imageActeNaissancePath;
+        }
+
+        $employe->save();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
+
+    }
+  
     public function showUpadteButton(){
         $this->editHasChanged = false;
         if (
@@ -246,19 +256,27 @@ class Employes extends Component
 
     public function goToAddEmployee(){
         $this->currentPage = PAGECREATEFORMTEMPLOYE;
-        $this->netoyer();
+        $this->newEmploye = [];
+        $this->addPhoto = null;
+        $this->addPhotoPiece = null;
+        $this->addPhotoActe = null;
+        $this->resetErrorBag();
     }
 
 
     public function goToListEmployee(){
         $this->currentPage = PAGELISTEMPLOYE;
+        $this->editEmploye = [];
+        $this->editPhoto = null;
+        $this->editPhotoPiece = null;
+        $this->editPhotoActe = null;
+
     }
 
     public function goToEditEmployee(Employe $employe){
         $this->currentPage = PAGEEDITFORMTEMPLOYE;
         $this->editEmploye = $employe->toArray();
         $this->editEmployeOldValues = $this->editEmploye;
-
         $this->resetErrorBag();
     }
    

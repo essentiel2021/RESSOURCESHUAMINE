@@ -34,6 +34,8 @@ class EmployeFactory extends Factory
             'personContactNum'=> $this->faker->unique()->phoneNumber,
             'personContact' => $this->faker->name(), 
             'photo' => 'images/imageplaceholder.png',
+            'acteNaissance' => 'images/imageplaceholder.png',
+            'photoPiece' => 'images/imageplaceholder.png',
         ];
     }
 }
