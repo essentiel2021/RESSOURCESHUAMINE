@@ -101,57 +101,21 @@
             <!-- /.card-body -->
         </div>
     </div>
-
-
-
-    @isset($editPhoto)
-        <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhoto', null)">Réinitialiser</button>
-            </div>
-        </div>
-    @endisset
-
-
-    @isset($editPhotoPiece)
-                        <div class="row">
-                            <div class="col-md-10"></div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhotoPiece', null)">Réinitialiser</button>
-                            </div>
-                        </div>
-                    @endisset
-
-
- @isset($editPhotoActe)
-                        <div class="row">
-                            <div class="col-md-10"></div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-default btn-sm mt-2"wire:click="$set('editPhotoActe', null)">Réinitialiser</button>
-                            </div>
-                        </div>
-                    @endisset
-
-
-
-
- $path1 = $this->editPhotoPiece->store('test','public');
-            $imagePath1 = "storage/".$path1;
-            $validateAttribute["editEmploye"]["photoPiece"] = $imagePath1;
-            $image1 = Image::make(public_path($imagePath1))->fit(200,200);
-            $image1->save();
-            Storage::disk("local")->delete(str_replace("storage/", "public/test", $employe->photoPiece));
-
-
-
-
-$path2 = $this->addPhotoPiece->store('acteNaissance','public');
-            $imagePath2 = "storage/".$path2;
-            $validateAttribute["editEmploye"]["acteNaissance"] = $imagePath2;
-            $image2 = Image::make(public_path($imagePath2))->fit(200,200);
-            $image2->save();
-            Storage::disk("local")->delete(str_replace("storage/", "public/acteNaissance", $employe->acteNaissance));
-
-
 //$validateAttribute['editEmploye']["blackList"] = $this->editEmploye["blackList"];
+
+
+
+<div class="d-flex">
+                        <label class="">BlackList</label>
+                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success form-group flex-grow-1">
+                            <input wire:model='editEmploye.blackList' @if($editEmploye["blackList"])checked @endif type="checkbox" class="custom-control-input" id="customSwitch{{ $editEmploye["id"]}}">
+                            <label class="custom-control-label" for="customSwitch{{ $editEmploye["id"]}}">{{ $editEmploye["blackList"] == 0 ? "Activé" : "Désactivé" }}</label>
+                        </div>
+                        <div class="form-group flex-grow-1">
+                            <label>Numero de dossier</label>
+                            <input type="number" wire:model='editEmploye.numeroDos' class="form-control" placeholder="Numero de dossier">
+                            @error("editEmploye.numeroDos")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>

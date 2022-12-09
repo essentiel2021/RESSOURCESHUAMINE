@@ -110,9 +110,6 @@ class Employes extends Component
                 'editEmploye.numeroPermis' => ['nullable',Rule::unique("employes","numeroPermis")->ignore($this->editEmploye['id'])],
                 'editEmploye.numeroCNPS' => ['nullable',Rule::unique("employes","numeroCNPS")->ignore($this->editEmploye['id'])],
                 'editEmploye.numeroDos' => ['nullable','numeric',Rule::unique("employes","numeroDos")->ignore($this->editEmploye['id'])],
-                // 'addPhoto' => 'image|max:10240',
-                // 'addPhotoPiece' => 'image|max:10240',
-                // 'addPhotoActe' => 'image|max:10240',
             ];
         }
         else {
@@ -218,7 +215,7 @@ class Employes extends Component
             Storage::disk("local")->delete(str_replace("storage/", "public/acteNaissance", $employe->acteNaissance));
             $employe->acteNaissance = $imageActeNaissancePath;
         }
-
+        //dd($employe);
         $employe->save();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
 
@@ -248,7 +245,8 @@ class Employes extends Component
             $this->editEmploye["acteNaissance"] != $this->editEmployeOldValues["acteNaissance"] ||
             $this->editPhoto != null||
             $this->editPhotoPiece != null ||
-            $this->editPhotoActe != null
+            $this->editPhotoActe != null ||
+            $this->editEmploye["blackList"] != $this->editEmployeOldValues["blackList"]
         ) {
             $this->editHasChanged  = true;
         }

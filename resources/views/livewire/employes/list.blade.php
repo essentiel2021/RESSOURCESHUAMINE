@@ -52,7 +52,7 @@
                         <tr>
                             <th style="width:5%;"></th>
                             <th style="width:20%;" class="text-center">Matricule</th>
-                            <th style="width:20%;" class="text-center">Nom</th>
+                            <th style="width:10%;" class="text-center">Nom</th>
                             <th style="width:20%;" class="text-center">Prenom</th>
                             <th style="width:10%;"class="text-center">Situation matrimoniale</th>
                             <th style="width:10%;"class="text-center">Commune</th>
