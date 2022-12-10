@@ -1,6 +1,6 @@
 <form role="form" wire:submit.prevent="editEmployee()">
     <div class="row p-4 pt-5">
-    <div class="col-md-8">
+    <div class="col-md-7">
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i></h3>
@@ -253,7 +253,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="card card-primary">
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title flex-grow-1"><i class="fas fa-fingerprint fa-2x"></i>Black List</h3>
@@ -274,5 +274,15 @@
                 </div>
             </div>
         </div>
+        <form role="form" wire:submit.prevent="editEmployee()">
+            <div class="card card-primary">
+                <div class="card-header d-flex align-items-center">
+                    <h3 class="card-title flex-grow-1"> <i class="fas fa-fingerprint fa-2x"></i> Rôles & Permissions</h3>
+                    <button class="btn bg-gradient-success"><i class="fas fa-check"></i>Appliquer les modifications</button>
+                </div>
+                <div class="card-body">
+                </div>
+            </div>
+        </form>
     </div>
 </form>

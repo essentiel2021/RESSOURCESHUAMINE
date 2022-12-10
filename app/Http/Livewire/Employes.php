@@ -18,24 +18,24 @@ class Employes extends Component
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = "bootstrap";
-
+    //variables pour la recherche et filtre
     public $search = "";
-    
-    public $currentPage = PAGELISTEMPLOYE;
     public $filtreSituaion = "";
     public $filtreCommune = "";
+    //variable pour l'apparition des pages
+    public $currentPage = PAGELISTEMPLOYE;
+   //variables pour les images
     public $addPhoto = null;
     public $editPhoto = null;
-
     public $addPhotoPiece = null ;
     public $editPhotoPiece = null;
-
     public $addPhotoActe = null;
     public $editPhotoActe = null;
-
+    //variables tableau pour la creation et modification de l'employés
     public $newEmploye = [];
     public $editEmploye = [];
 
+    //Variables pour permettre l'affichage du bouton modifier
     public $editHasChanged = false;
     public $editEmployeOldValues = [];
 
