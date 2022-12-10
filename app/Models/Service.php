@@ -17,6 +17,9 @@ class Service extends Model
     {
         return $this->belongsTo(Departement::class);
     }
+    public function employes(){
+        return $this->belongsToMany(Employe::class, 'employe_service', 'service_id', 'employe_id');
+    }
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

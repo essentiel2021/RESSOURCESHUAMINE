@@ -19,4 +19,7 @@ class Employe extends Model
     public function piece(){
         return $this->belongsTo(PieceIdentite::class,"piece_identite_id","id");
     }
+    public function services(){
+        return $this->belongsToMany(Service::class, 'employe_service', 'employe_id', 'service_id');
+    }
 }
