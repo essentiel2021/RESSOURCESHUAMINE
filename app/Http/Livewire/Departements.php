@@ -14,6 +14,11 @@ class Departements extends Component
     public $succursale_id = NULL;
     public $libelle = "";
     public $editDepartement = [];
+
+    //Variables pour permettre l'affichage du bouton modifier
+    public $editHasChanged = false;
+    public $editDepartementOldValues = [];
+
     protected $validationAttributes = [
         'succursale_id' => 'Succursale',
         'libelle' => 'Département',
@@ -31,9 +36,9 @@ class Departements extends Component
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte créé avec succès!"]);
     }
     
-    public function editDepartement(Departement $departement){
-        $this->editDepartement["libelle"] = $departement->libelle;
-        $this->editDepartement["id"] = $departement->id;
+    public function editDepartement($departementId){
+        $this->editDepartement = Departement::with("succursale")->find($departementId)->toArray();
+        $this->editDepartementOldValues = $this->editDepartement;
         $this->dispatchBrowserEvent("showEditModal",[]);
     }
     public function updateDepartement(){
@@ -43,11 +48,10 @@ class Departements extends Component
                 Rule::unique("departements", "libelle")->ignore($this->editDepartement["id"])
             ],
         ]);
-        Departement::find($this->editDepartement["id"])->update([
-            "libelle" => $this->editDepartement["libelle"]
-        ]);
+        $departement = Departement::find($this->editDepartement["id"]);
+        $departement->fill($this->editDepartement);
+        $departement->save();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département mise à jour avec succès!"]);
-        $this->fermerModal();
     }
     public function showDeleteDep($name,$id){
         $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
@@ -61,9 +65,15 @@ class Departements extends Component
         $departement->delete();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Département $departement->libelle supprimé avec succès!"]);
     }
-    public function fermerModal(){
-        $this->editDepartement = [];
+    public function fermerModalEdit(){
         $this->dispatchBrowserEvent("closeEditModal");
+        $this->resetErrorBag();
+    }
+
+    public function fermerModal(){
+        $this->libelle = "";
+        $this->succursale_id = NULL;
+        $this->dispatchBrowserEvent("closeModal");
         $this->resetErrorBag();
     }
     
@@ -76,6 +86,15 @@ class Departements extends Component
         $this->dispatchBrowserEvent("closeModal",[]);
     }
     
+    public function showUpadteButton(){
+        $this->editHasChanged = false;
+        if (
+            $this->editDepartement["libelle"] != $this->editDepartementOldValues["libelle"] 
+            
+        ) {
+            $this->editHasChanged  = true;
+        }
+    }
     
     /**
      * Write code on Method
@@ -93,6 +112,9 @@ class Departements extends Component
 
     public function render()
     {
+        if ($this->editDepartement != []) {
+            $this->showUpadteButton();
+        }
         $data = [
             "departements" => Departement::latest()->paginate(5), 
         ];

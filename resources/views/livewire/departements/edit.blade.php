@@ -7,7 +7,12 @@
             <div class="modal-body">
                 <div class="d-flex my-4 bg-gray-light p-3">
                     <div class="d-flex flex-grow-1 mr-2">
-                        <div class="flex-grow-1 ">
+                        <div class="flex-grow-1 mr-2">
+                            <select class="form-control" wire:model='editDepartement.succursale_id'>
+                                <option value="{{ $editDepartement["succursale_id"]}}">{{ $editDepartement["succursale"]["libelle"]}}</option>
+                            </select>
+                        </div>
+                         <div class="flex-grow-1 ">
                             <input type="text" wire:model='editDepartement.libelle' placeholder="Nom du département" class="form-control @error('editDepartement.libelle') is-invalid @enderror">
                             @error('editDepartement.libelle')
                                 <span class="text-danger">{{ $message }}</span>
@@ -15,12 +20,14 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-success" wire:click='updateDepartement()'>Modifier</button>
+                        @if($editHasChanged)
+                            <button class="btn btn-success" wire:click='updateDepartement()'>Modifier</button>
+                        @endif
                     </div>   
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" wire:click='fermerModal()'>Fermer</button>
+                <button type="button" class="btn btn-danger" wire:click='fermerModalEdit()'>Fermer</button>
             </div>
         </div>
     </div>

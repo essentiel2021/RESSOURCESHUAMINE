@@ -9,7 +9,7 @@
                     <div class="d-flex flex-grow-1 mr-2">
                         <div class="flex-grow-1 mr-2">
                             <select class="form-control @error('departement_id') is-invalid @enderror" wire:model='departement_id'>
-                                <option value="">--Choissir un Service--</option>
+                                <option value="">--Choissir un Département--</option>
                                 @foreach($departements as $departement)
                                     <option value="{{$departement->id}}">{{ $departement->libelle}}</option>
                                 @endforeach
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" wire:click='closeModal'>Fermer</button>
+                <button type="button" class="btn btn-danger" wire:click='fermerModal()'>Fermer</button>
             </div>
         </div>
     </div>

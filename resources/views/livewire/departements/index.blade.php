@@ -1,5 +1,7 @@
 <div>
-    @include("livewire.departements.edit")
+    @if($editDepartement != [])
+        @include("livewire.departements.edit")
+    @endif
 
     @include("livewire.departements.add")
 

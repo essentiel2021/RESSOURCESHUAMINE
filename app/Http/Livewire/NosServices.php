@@ -14,13 +14,14 @@ class NosServices extends Component
     public $departements;
     public $editService = [];
 
+    //Variables pour permettre l'affichage du bouton modifier
+    public $editHasChanged = false;
+    public $editServiceOldValues = [];
+
     public function showService(){
         $this->dispatchBrowserEvent("showAddModal");
     }
     public function closeModal(){
-        $this->resetErrorBag();
-        $this->libelle = "";
-        $this->departement_id = NULL;
         $this->dispatchBrowserEvent("closeModal",[]);
     }
     public function addService(){
@@ -32,12 +33,16 @@ class NosServices extends Component
         $this->closeModal();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Service créé avec succès!"]);
     }
-    public function editService(Service $service){
-       $this->editService["libelle"] = $service->libelle;
-       $this->editService["id"] = $service->id;
+    public function editService($serviceId){
+       $this->editService = Service::with("departement")->find($serviceId)->toArray();
+       $this->editServiceOldValues = $this->editService;
        $this->dispatchBrowserEvent("showEditModal",[]);
     }
     public function fermerModal(){
+        $this->dispatchBrowserEvent("closeModal");
+    }
+
+    public function fermerEditModal(){
         $this->dispatchBrowserEvent("closeEditModal");
     }
     public function updateService(){
@@ -53,6 +58,15 @@ class NosServices extends Component
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Service mise à jour avec succès!"]);
         $this->fermerModal();
     }
+    public function showUpadteButton(){
+        $this->editHasChanged = false;
+        if (
+            $this->editService["libelle"] != $this->editServiceOldValues["libelle"] 
+            
+        ) {
+            $this->editHasChanged  = true;
+        }
+    }
     public function mount()
     {
        $this->departements = Departement::orderBy("libelle","ASC")->get();
@@ -60,6 +74,9 @@ class NosServices extends Component
     }
     public function render()
     {
+        if ($this->editService != []) {
+            $this->showUpadteButton();
+        }
         $data = [
             "services" => Service::orderBy("libelle","ASC")->paginate(5),
         ];

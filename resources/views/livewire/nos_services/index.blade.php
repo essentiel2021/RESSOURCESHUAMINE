@@ -1,5 +1,7 @@
 <div>
-    @include("livewire.nos_services.edit")
+    @if($editService != [])
+        @include("livewire.nos_services.edit")
+    @endif
 
     @include("livewire.nos_services.add")
 

@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" wire:click='closeModal'>Fermer</button>
+                <button type="button" class="btn btn-danger" wire:click='fermerModal()'>Fermer</button>
             </div>
         </div>
     </div>
