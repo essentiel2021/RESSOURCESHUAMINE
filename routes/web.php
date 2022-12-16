@@ -11,11 +11,14 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Livewire\Affectations;
 use App\Http\Livewire\BlackList;
 use App\Http\Livewire\Employes;
 use App\Http\Livewire\NosServices;
 use App\Models\Commune;
 use App\Models\Employe;
+use App\Models\EmployeService;
+use App\Models\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +64,12 @@ Route::group([
         Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
         Route::get("/services",NosServices::class)->name("service");
     });
+    //route concernant l'affectation
+    
+    Route::group([
+        "prefix" => "gestaffectations",'as' => 'gestaffectations.'], function(){
+        Route::get("/affectations", Affectations::class)->name("affectations");
+    });
 
 });
 
@@ -78,10 +87,14 @@ Route::group([
     );
 });
 
-Route::get("/employes",function (){
-    return Employe::with("commune")->get();
-});
+// Route::get("/employes",function (){
+//     return Employe::with("commune")->get();
+// });
 
-Route::get("/communes",function (){
-    return Commune::get();
+Route::get("/employeServices",function (){
+    //return Employe::with("services")->find(10);
+    //return Employe::find(10)->services();
+    //return Employe::find(10)->services()->orderBy('id')->get();
+    //return EmployeService::all();
+    return EmployeService::with("employe")->where("is_end",1)->get();
 });

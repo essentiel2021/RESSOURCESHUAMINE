@@ -3,13 +3,17 @@
 namespace App\Http\Livewire;
 
 use App\Models\Commune;
+use App\Models\Departement;
 use App\Models\Employe;
+use App\Models\EmployeService;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\PieceIdentite;
+use App\Models\Service;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use App\Models\SituationMatrimoniale;
+use App\Models\Succursale;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -22,6 +26,7 @@ class Employes extends Component
     public $search = "";
     public $filtreSituaion = "";
     public $filtreCommune = "";
+ 
     //variable pour l'apparition des pages
     public $currentPage = PAGELISTEMPLOYE;
    //variables pour les images
@@ -39,6 +44,37 @@ class Employes extends Component
     public $editHasChanged = false;
     public $editEmployeOldValues = [];
 
+       //select dynamique 
+       public $succursales;
+       public $departements;
+       public $services;
+       public $selectedSuccursale = NULL;
+       public $selectedDepartement = Null;
+
+       //variables qui concerne l'affectation 
+       public $newAffectation = [];
+       public $editAffectation = [];
+
+    public function mount(){
+        $this->succursales = Succursale::all(); 
+        $this->departements = collect();
+        $this->services = collect();
+    }
+    public function updatedselectedSuccursale($succursale){
+        if (!is_null($succursale)) {
+            $this->departements = Departement::where('succursale_id', $succursale)->get();
+        }
+    }
+    
+    public function updatedselectedDepartement($departement){
+        if (!is_null($departement)) {
+            $this->services = Service::where("departement_id",$departement)->get();
+        }
+    }
+    public function saveAffectation(){
+        
+    }
+    
     public function render()
     {
         $employeQuery = Employe::query();
@@ -215,10 +251,8 @@ class Employes extends Component
             Storage::disk("local")->delete(str_replace("storage/", "public/acteNaissance", $employe->acteNaissance));
             $employe->acteNaissance = $imageActeNaissancePath;
         }
-        //dd($employe);
         $employe->save();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
-
     }
   
     public function showUpadteButton(){
@@ -251,7 +285,6 @@ class Employes extends Component
             $this->editHasChanged  = true;
         }
     }
-
     public function goToAddEmployee(){
         $this->currentPage = PAGECREATEFORMTEMPLOYE;
         $this->newEmploye = [];

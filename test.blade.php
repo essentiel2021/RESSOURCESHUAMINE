@@ -151,3 +151,6 @@
         </div>
     </div>
 </div>
+
+
+<a href="{{route("manager.gestsuccursales.departements.service",['id'=>$departement->id])}}" title= "Ajout services" class="btn btn-link"> <i class="fa-sharp fa-solid fa-money-check"></i> </a>

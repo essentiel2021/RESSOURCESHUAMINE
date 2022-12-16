@@ -18,16 +18,6 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        {{-- @if(!is_null($selectedSuccursale))
-                            <div class="flex-grow-1 mr-2">
-                                <select class="form-control">
-                                    <option value="">--Département--</option>
-                                    @foreach ( $departementAll as $item)
-                                        <option value="{{$item->id}}">{{$item->libelle}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @endif --}}
                         @if(!is_null($succursale_id))
                             <div class="flex-grow-1 ">
                                 <input type="text" wire:model='libelle' placeholder="Nom du département" class="form-control @error('libelle') is-invalid @enderror">

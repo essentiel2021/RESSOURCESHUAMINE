@@ -274,7 +274,7 @@
                 </div>
             </div>
         </div>
-        <form role="form" wire:submit.prevent="editEmployee()">
+        {{-- <form role="form" wire:submit.prevent="affectation()">
             <div class="card card-primary">
                 <div class="card-header d-flex align-items-center">
                     <h3 class="card-title flex-grow-1"> <i class="fas fa-fingerprint fa-2x"></i> Rôles & Permissions</h3>
@@ -283,6 +283,66 @@
                 <div class="card-body">
                 </div>
             </div>
-        </form>
+        </form> --}}
+        {{-- <div class="card card-primary">
+            <div class="card-header d-flex align-items-center">
+                <h3 class="card-title flex-grow-1"> <i class="fas fa-fingerprint fa-2x"></i>Affectation</h3>
+                <button class="btn bg-gradient-success" wire:click='affectation()'><i class="fas fa-check"></i>Confirmer</button>
+            </div>
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="form-group flex-grow-1 mr-2">
+                        <label for="">Séccursales</label>
+                        <select class="form-control" wire:model='selectedSuccursale'>
+                            <option value="">------Selectionne une seccursale-----</option>
+                            @foreach ($succursales as $item)
+                                <option value="{{ $item->id }}">{{ $item->libelle }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        @if(!is_null($selectedSuccursale))
+                            <label for="">Département</label>
+                            <select wire:model='selectedDepartement' class="form-control">
+                                <option value="">-----Selectionne un département----</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{$departement->id}}">{{$departement->libelle}}</option>
+                                @endforeach
+                            </select>
+                        @endif
+                    </div>
+                </div>
+                @if(!is_null($selectedDepartement))
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="">Services</label>
+                            <select class="form-control" wire:model='newAffectation.service_id'>
+                                <option value="">------Selectionne un service-----</option>
+                                @foreach ($services as $service)
+                                        <option value="{{$service->id}}">{{$service->libelle}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group flex-grow-1">
+                            <label>Date prise de service</label>
+                            <input type="date" class="form-control" wire:model='newAffectation.date_debut'>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Mettre fin au service</label>
+                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input wire:model='newAffectation.is_end' type="checkbox" class="custom-control-input" id="customSwitch">
+                                <label class="custom-control-label" for="customSwitch">Activé</label>
+                            </div>
+                        </div>
+                        <div class="form-group flex-grow-1">
+                            <label>Date fin prise de service</label>
+                            <input type="date" class="form-control" wire:model='newAffectation.date_fin'>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div> --}}
     </div>
 </form>

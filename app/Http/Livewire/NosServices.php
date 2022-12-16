@@ -5,10 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\Service;
 use Livewire\Component;
 use App\Models\Departement;
+use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 
 class NosServices extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = "bootstrap";
     public $departement_id = NULL;
     public $libelle = "";
     public $departements;

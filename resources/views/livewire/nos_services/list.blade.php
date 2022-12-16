@@ -7,7 +7,7 @@
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click='showService()'><i class="fa-regular fa-building"></i> Nouveau Servive</a>
                 </div>
             </div>
-            <div class="card-body table-responsive p-0 table-striped" style="height: 300px;">
+            <div class="card-body table-responsive p-0 table-striped">
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>

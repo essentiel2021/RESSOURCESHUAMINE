@@ -81,7 +81,37 @@
             </ul>
           </li>
         </li>
-       
+
+        <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fa-solid fa-building-user"></i>
+              <p>
+                Gestion Affectations
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route("manager.gestaffectations.affectations")}}" class="nav-link">
+                  <i class="nav-icon fa-regular fa-building"></i>
+                  <p>Succursales</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fa-solid fa-bars"></i>
+                  <p>Départements</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fa-solid fa-bars"></i>
+                  <p>Services</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </li>
         @endcan 
                
         @can('assistant')
