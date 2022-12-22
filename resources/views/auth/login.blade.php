@@ -44,7 +44,7 @@
           <label for="remember">Se souvenir de moi</label>
         </div> --}}
         <div class="row">
-            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+          <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
         </div>
       </form>
 

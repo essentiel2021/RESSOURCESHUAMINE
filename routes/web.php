@@ -11,6 +11,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use App\Http\Livewire\Affectations;
 use App\Http\Livewire\BlackList;
 use App\Http\Livewire\Employes;
@@ -98,3 +99,12 @@ Route::get("/employeServices",function (){
     //return EmployeService::all();
     return EmployeService::with("employe")->where("is_end",1)->get();
 });
+
+//les routes concernant le profil du compte
+
+Route::get("user/edit",[UserController::class,"edit"])->name('user.edit');
+Route::post("user/store",[UserController::class,"store"])->name('post.user');
+
+Route::get('user/password', [UserController::class, 'password'])->name('user.password');
+
+Route::post('password', [UserController::class, 'updatePassword'])->name('update.password');

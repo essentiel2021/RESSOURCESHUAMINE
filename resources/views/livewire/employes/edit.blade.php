@@ -27,8 +27,8 @@
                         <label for="">Sexe</label>
                         <select class="form-control @error('editEmploye.sexe') is-invalid @enderror" wire:model='editEmploye.sexe'>
                             <option value="">--------------</option>
-                            <option value="M">Homme</option>
-                            <option value="F">Femme</option>
+                            <option value="1">Homme</option>
+                            <option value="0">Femme</option>
                         </select>
                         @error("editEmploye.sexe")
                             <span class="text-danger">{{ $message }}</span>
