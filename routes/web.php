@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Livewire\Affectations;
 use App\Http\Livewire\BlackList;
 use App\Http\Livewire\Employes;
+use App\Http\Livewire\Mutations;
 use App\Http\Livewire\NosServices;
 use App\Models\Commune;
 use App\Models\Employe;
@@ -70,6 +71,7 @@ Route::group([
     Route::group([
         "prefix" => "gestaffectations",'as' => 'gestaffectations.'], function(){
         Route::get("/affectations", Affectations::class)->name("affectations");
+        Route::get("/mutations", Mutations::class)->name("mutations");
     });
 
 });
