@@ -35,6 +35,9 @@ class User extends Authenticatable
     {
         return $this->roles()->where("libelle",$role)->first() ==! null;
     }
+    public function employes(){
+        return $this->hasMany(Employe::class);
+    }
 
     public function hasAnyRoles($roles)
     {

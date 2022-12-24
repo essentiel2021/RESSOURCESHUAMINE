@@ -176,6 +176,7 @@ class Employes extends Component
         }
     }
     public function addEmployee(){
+        $user = auth()->user();
         $validateAttribute = $this->validate();
         $imagePath  = "images/imageplaceholder.png";
         $imagePieceIdentitePath = "images/imageplaceholder.png";
@@ -204,6 +205,8 @@ class Employes extends Component
         $validateAttribute['newEmploye']["photo"] = $imagePath;
         $validateAttribute['newEmploye']["photoPiece"] = $imagePieceIdentitePath;
         $validateAttribute['newEmploye']["acteNaissance"] = $imageActeNaissancePath;
+        $validateAttribute['newEmploye']["user_id"] = $user->id;
+        //dd($validateAttribute['newEmploye']);
         Employe::create($validateAttribute['newEmploye']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé créé avec succès!"]);
 
@@ -225,8 +228,12 @@ class Employes extends Component
         }
     }
     public function editEmployee(){
+        //User::find($this->editUser["id"])->update($validateAttribute["editUser"]);
         $this->validate();
         $employe = Employe::find($this->editEmploye["id"]);
+        $user = auth()->user();
+        $this->editEmploye["user_id"] = $user->id;
+        dd($this->editEmploye);
         $employe->fill($this->editEmploye);
         if($this->editPhoto != null){
             $path = $this->editPhoto->store("upload", "public");
