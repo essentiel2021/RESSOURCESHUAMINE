@@ -36,9 +36,10 @@ class Employes extends Component
     public $editPhotoPiece = null;
     public $addPhotoActe = null;
     public $editPhotoActe = null;
-    //variables tableau pour la creation et modification de l'employés
+    //variables tableau pour la creation ,modification et la suppression de l'employés
     public $newEmploye = [];
     public $editEmploye = [];
+    public $deleteEmploye = [];
 
     //Variables pour permettre l'affichage du bouton modifier
     public $editHasChanged = false;
@@ -233,7 +234,6 @@ class Employes extends Component
         $employe = Employe::find($this->editEmploye["id"]);
         $user = auth()->user();
         $this->editEmploye["user_id"] = $user->id;
-        dd($this->editEmploye);
         $employe->fill($this->editEmploye);
         if($this->editPhoto != null){
             $path = $this->editPhoto->store("upload", "public");
@@ -262,7 +262,23 @@ class Employes extends Component
         $employe->save();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Employé modifié avec succès!"]);
     }
-  
+    public function showDeleteEmploye(Employe $employe){
+
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=> [
+            "text" => "Vous êtes sur le point de supprimer ". $employe->nom ." " . $employe->prenom ." de la liste des employés. Voulez-vous continuer?",
+            "title" => "Êtes-vous sûr de continuer?",
+            "type" => "warning",
+            "data" => [
+                "employe_id" => $employe->id
+            ]
+        ]]); 
+    }
+    public function supprimerEmploye(Employe $employe){
+        $employe->user_id = auth()->user()->id;
+        $employe->save();
+        $employe->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"L'employé". $employe->nom ." " . $employe->prenom ."supprimé avec succès!"]);
+    }
     public function showUpadteButton(){
         $this->editHasChanged = false;
         if (

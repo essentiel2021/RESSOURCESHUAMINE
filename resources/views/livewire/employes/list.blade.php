@@ -70,7 +70,7 @@
                                 <td class="text-center">{{$employe->commune->libelle }}</td>
                                 <td class="text-center">
                                     <button class="btn btn-link" wire:click='goToEditEmployee({{$employe->id}})'> <i class="far fa-edit"></i></button>
-                                    <button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
+                                    <button class="btn btn-link" wire:click='showDeleteEmploye({{$employe->id}})'><i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @empty
