@@ -16,7 +16,6 @@ class CreateTableFonctions extends Migration
         Schema::create('fonctions', function (Blueprint $table) {
             $table->id();
             $table->string("libelle");
-            $table->string("slug")->nullable();
             $table->timestamps();
         });
     }

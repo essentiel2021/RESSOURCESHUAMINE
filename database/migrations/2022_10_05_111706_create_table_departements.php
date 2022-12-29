@@ -16,7 +16,6 @@ class CreateTableDepartements extends Migration
         Schema::create('departements', function (Blueprint $table) {
             $table->id();
             $table->string("libelle");
-            $table->string("slug")->nullable();
             $table->foreignId("succursale_id")->constrained();
             $table->timestamps();
         });
