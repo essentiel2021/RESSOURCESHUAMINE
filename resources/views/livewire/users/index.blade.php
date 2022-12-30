@@ -26,13 +26,12 @@
         cancelButtonText: 'Annuler',
         }).then((result) => {
         if (result.isConfirmed) {
-            if(event.detail.message.data){
+            if(event.detail.message.data.user_id){
                 @this.deleteUser(event.detail.message.data.user_id)
             }
             else{
                 @this.resetPassword()
             }
-            
         }
         })
     })
@@ -48,4 +47,21 @@
             )
     })
 </script>
-
+<script>
+    window.addEventListener("affichageDesactiveConfirmMessage", event=>{
+        Swal.fire({
+        title:event.detail.message.title,
+        text: event.detail.message.text,
+        icon:event.detail.message.type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler',
+        }).then((result) => {
+        if (result.isConfirmed) {
+            @this.desactiveUser(event.detail.message.data.user_id)
+        }
+        })
+    })
+</script>

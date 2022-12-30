@@ -23,6 +23,8 @@ class Users extends Component
 
     public $rolePermissions = [];
 
+    public $userActiveAccount = [];
+
     protected $validationAttributes = [
         'newUser.email' => 'Email',
         'newUser.lastName' => 'Prénom',
@@ -32,7 +34,9 @@ class Users extends Component
     public function render()
     {
         return view('livewire.users.index',[
-            "users" => User::latest()->paginate(4)
+            //"users" => User::latest()->paginate(4)
+            //permets d'afficher tous les comptes memes les supprimés
+            "users" => User::withTrashed()->paginate(4)
         ])->extends("layouts.master")->section("contenu");
     }
     public function rules(){
@@ -157,5 +161,28 @@ class Users extends Component
         User::find($id)->delete();
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte supprimé avec succès!"]);
     }
-   
+
+    public function accountActive($id){
+        // Récupérez l'utilisateur et restaurez-le
+        $user = User::withTrashed()->find($id);
+        $user->restore();
+        // Mettez à jour l'état du composant
+        $this->emit('deleted_at');
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte activé avec succès!"]);
+    }   
+
+    public function accountDesactivateShow(User $user){
+        $this->dispatchBrowserEvent("affichageDesactiveConfirmMessage", ["message"=>[
+            'text' => "Vous êtes sur le point de désactiver le compte $user->name $user->lastName.Voulez vous continuer?",
+            'title' =>"Êtes vous sûr de vouloir continuer?",
+            'type' => "warning",
+            'data' => [
+                "user_id" => $user->id
+            ]
+        ]]);
+    }
+    public function desactiveUser(User $user){
+        $user->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte désactiver avec succès!"]);
+    }
 }

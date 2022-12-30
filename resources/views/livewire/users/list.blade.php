@@ -22,7 +22,7 @@
                         <th style="width:5%;"></th>
                         <th style="width:25%;">Comptes</th>
                         <th style="width:20%;">Rôles</th>
-                        <th style="width:20%;"class="text-center">Ajouté</th>
+                        <th style="width:20%;"class="text-center">Activer/Désactiver</th>
                         <th style="width:30%;"class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -38,10 +38,19 @@
                                 </td>
                                 <td>{{ $user->name }} {{ $user->lastName }}</td>
                                 <td>{{ $user->allRoleNames }}</td>
-                                <td class="text-center"><span class="tag tag-success">{{ optional($user->created_at)->diffForHumans() }}</span></td>
+                                @if ($user->trashed())
+                                    <td class="text-center">
+                                        <button wire:click='accountActive({{$user->id}})' class="btn btn-warning">Activer</button>
+                                    </td>
+                                @else
+                                    <td class="text-center">
+                                        <button wire:click='accountDesactivateShow({{$user->id}})' class="btn btn-danger">Désactiver</button>
+                                    </td>
+                                @endif
+                               
                                 <td class="text-center">
-                                    <button class="btn btn-link" wire:click='goToEditUser({{$user->id}})'> <i class="far fa-edit"></i></button>
-                                    <button class="btn btn-link" wire:click='confirmDelete("{{$user->name}}{{$user->lastName}}",{{$user->id}})'> 
+                                    <button class="btn btn-link" title="Modifier ce compte" wire:click='goToEditUser({{$user->id}})'> <i class="far fa-edit"></i></button>
+                                    <button class="btn btn-link" title="Supprimer ce compte" wire:click='confirmDelete("{{$user->name}}{{$user->lastName}}",{{$user->id}})'> 
                                     <i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
