@@ -271,7 +271,7 @@ class Employes extends Component
             "data" => [
                 "employe_id" => $employe->id
             ]
-        ]]); 
+        ]]);
     }
     public function supprimerEmploye(Employe $employe){
         $employe->user_id = auth()->user()->id;

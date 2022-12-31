@@ -66,12 +66,13 @@ Route::group([
         Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
         Route::get("/services",NosServices::class)->name("service");
     });
+
     //route concernant l'affectation
     
     Route::group([
         "prefix" => "gestaffectations",'as' => 'gestaffectations.'], function(){
-        Route::get("/affectations", Affectations::class)->name("affectations");
-        Route::get("/mutations", Mutations::class)->name("mutations");
+            Route::get("/affectations", Affectations::class)->name("affectations");
+            // Route::get("/mutations", Mutations::class)->name("mutations");
     });
 
 });
@@ -86,6 +87,7 @@ Route::group([
         ["prefix" => "gestemployes","as" => "gestemployes."],function(){
             Route::get("/employes",Employes::class)->name("employe.index");
             Route::get("/blacklist",BlackList::class)->name("employe.black");
+            Route::get("/employe/{id}/affectations", Affectations::class)->name("employe.affectations");
         }
     );
 });

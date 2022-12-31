@@ -136,6 +136,12 @@
                   <p>Black List</p>
                 </a>
               </li>
+              {{-- <li class="nav-item">
+                <a href="{{ route("assistant.gestemployes.employe.black")}}" class="nav-link {{ setMenuClass("assistant.gestemployes.employe.black","active") }}">
+                  <i class="fa-solid fa-user-xmark"></i>
+                  <p>Historique des affectations</p>
+                </a>
+              </li> --}}
             </ul>
           </li>
         @endcan
