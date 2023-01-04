@@ -192,3 +192,14 @@
       </div>
     </form>
 </div>
+
+
+ {{-- <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Mettre fin au service</label>
+                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input wire:model='newAffectation.is_end' type="checkbox" class="custom-control-input" id="customSwitch">
+                                <label class="custom-control-label" for="customSwitch">Activé</label>
+                            </div>
+                        </div>
+                    </div> --}}

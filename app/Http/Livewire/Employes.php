@@ -3,19 +3,20 @@
 namespace App\Http\Livewire;
 
 use App\Models\Commune;
-use App\Models\Departement;
 use App\Models\Employe;
-use App\Models\EmployeService;
+use App\Models\Service;
 use Livewire\Component;
+use App\Models\Succursale;
+use App\Models\Departement;
 use Livewire\WithPagination;
 use App\Models\PieceIdentite;
-use App\Models\Service;
 use Livewire\WithFileUploads;
+use App\Models\EmployeService;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use App\Models\SituationMatrimoniale;
-use App\Models\Succursale;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class Employes extends Component
 {
@@ -54,6 +55,8 @@ class Employes extends Component
 
        //variables qui concerne l'affectation 
        public $newAffectation = [];
+       public $newServiceId;
+       public $employeId;
        public $editAffectation = [];
 
     public function mount(){
@@ -72,10 +75,7 @@ class Employes extends Component
             $this->services = Service::where("departement_id",$departement)->get();
         }
     }
-    public function saveAffectation(){
-        
-    }
-    
+
     public function render()
     {
         $employeQuery = Employe::query();
@@ -308,6 +308,48 @@ class Employes extends Component
         ) {
             $this->editHasChanged  = true;
         }
+    }
+    public function showAddAffectation($employeId){
+        $this->dispatchBrowserEvent("showAddModal");
+        $this->employeId = $employeId;
+    }
+    public function addAffectation(){
+        //verification les champs date_debut et date_fin qui doivent etre requise
+        $validateAttribute = $this->validate([
+            "newAffectation.date_debut" => ["required"],
+            "newAffectation.date_fin" => ["required"],
+        ]);
+        //fin verification
+        //recuperer l'affectation d'un employé qui est toujours encours
+        $exists = DB::table('employe_service')
+            ->where('employe_id', $this->employeId)
+            ->where('is_end', false)
+            ->exists();
+        //ici on fait une verification dans le if et quand c'est 
+        //bon on récupere le premier enregistrement et on mets le champ is_end à true
+        if ($exists) {
+            $service = DB::table('employe_service')
+            ->where('employe_id', $this->employeId)
+            ->where('is_end',false)
+            ->first();
+            
+            DB::table('employe_service')
+            ->where('id', $service->id)
+            ->update(['is_end' => true]);
+        }
+        //ici il est question d'enregistrer l'affectation dans la DB
+        $validateAttribute['newAffectation']["employe_id"] = $this->employeId;
+        $validateAttribute['newAffectation']["service_id"] = $this->newServiceId;
+        EmployeService::create($validateAttribute['newAffectation']);
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Affecter avec succès!"]);
+    }
+    public function closeAddAffectationModal(){
+        $this->resetErrorBag();
+        $this->selectedSuccursale = NULL;
+        $this->selectedDepartement = Null;
+        $this->newAffectation = [];
+        $this->newServiceId = null;
+        $this->dispatchBrowserEvent("closeModal",[]);
     }
     public function goToAddEmployee(){
         $this->currentPage = PAGECREATEFORMTEMPLOYE;

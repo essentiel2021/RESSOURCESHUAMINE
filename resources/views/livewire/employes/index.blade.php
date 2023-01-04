@@ -10,6 +10,7 @@
     @if($currentPage == PAGELISTEMPLOYE)
         @include("livewire.employes.list")
     @endif
+    @include('livewire.employes.newAffectation')
 </div>
 <script>
     window.addEventListener("showSuccessMessage", event=>{
@@ -23,6 +24,13 @@
                 }
             )
     })
+    window.addEventListener("showAddModal", event=>{
+        $("#affectationAdd").modal({"show": true,"backdrop": "static"})
+        })
+    
+        window.addEventListener("closeModal", event=>{
+        $("#affectationAdd").modal("hide")
+        })
 </script>
 <script>
      window.addEventListener("showConfirmMessage", event=>{

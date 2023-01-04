@@ -87,7 +87,7 @@ Route::group([
         ["prefix" => "gestemployes","as" => "gestemployes."],function(){
             Route::get("/employes",Employes::class)->name("employe.index");
             Route::get("/blacklist",BlackList::class)->name("employe.black");
-            Route::get("/employe/{id}/affectations", Affectations::class)->name("employe.affectations");
+            Route::get("/employe/{id}/affectations",Employes::class)->name("employe.affectations");
         }
     );
 });

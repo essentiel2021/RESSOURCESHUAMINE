@@ -58,7 +58,6 @@ class Affectations extends Component
         $validateAttribute['newAffectation']["service_id"] =$this->newAffectation["service_id"];
         EmployeService::create($validateAttribute['newAffectation']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Affecter avec succès!"]);
-        //dd($validateAttribute);
     }
    
   public function mount(){
