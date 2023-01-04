@@ -83,4 +83,5 @@ class Affectations extends Component
         ];
         return view('livewire.affectations.index',$data)->extends("layouts.master")->section("contenu");
     }
+    //pour comment la fonctionnalité historique
 }
