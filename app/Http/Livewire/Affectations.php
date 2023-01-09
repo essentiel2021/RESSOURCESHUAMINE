@@ -12,6 +12,7 @@ use Livewire\WithPagination;
 
 class Affectations extends Component
 {
+    //dans ce controller je vais developper la fonctionnalité historique
     use WithPagination;
     protected $paginationTheme = "bootstrap";
 
