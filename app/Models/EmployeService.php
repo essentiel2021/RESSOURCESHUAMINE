@@ -19,4 +19,14 @@ class EmployeService extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    public function departement()
+    {
+        return $this->belongsToThrough(Departement::class, Service::class);
+    }
+
+    public function succursale()
+    {
+        return $this->belongsToThrough(Succursale::class, Departement::class, Service::class);
+    }
 }

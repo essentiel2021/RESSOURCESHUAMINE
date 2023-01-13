@@ -2,21 +2,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-primary">
-                <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i>Liste des employés</h3>
+                <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i>Historique d'affectation</h3>
                 <div class="card-tools d-flex align-items-center">
                     {{-- <a class="btn btn-link text-white mr-4 d-block" wire:click='goToAddEmployee()'><i class="fas fa-user-plus"></i>Nouveau employé</a> --}}
-                    <div class="input-group input-group-md" style="width: 250px;">
+                    {{-- <div class="input-group input-group-md" style="width: 250px;">
                         <input type="text" name="table_search" wire:model.debounce.250ms="search" class="form-control float-right" placeholder="Recherche">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card-body table-responsive p-0 table-striped" >
-                <div class="d-flex justify-content-end p-4 bg-indigo">
+                {{-- <div class="d-flex justify-content-end p-4 bg-indigo">
                     <div class="form-group mr-3">
                         <label for="filtreType">Filtrer par commune</label>
                         <select  id="filtreCommune" wire:model="filtreCommune" class="form-control">
@@ -37,41 +37,44 @@
                         </select>
                     </div>
 
-                    {{-- <div class="form-group mr-3">
+                    <div class="form-group mr-3">
                         <label for="filtreblack">Filtrer par BlackList</label>
                         <select  id="filtreblack" wire:model="filtreblack" class="form-control">
                             <option value=""></option>
                             <option value="1">Black list</option>
                             <option value="0">Pas Black list</option>
                         </select>
-                    </div> --}}
+                    </div>
 
-                </div>
+                </div> --}}
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
                         <tr>
                             <th style="width:5%;"></th>
-                            <th style="width:20%;" class="text-center">Matricule</th>
-                            <th style="width:10%;" class="text-center">Nom</th>
-                            <th style="width:20%;" class="text-center">Prenom</th>
-                            <th style="width:10%;"class="text-center">Situation matrimoniale</th>
-                            <th style="width:10%;"class="text-center">Commune</th>
-                            <th style="width:15%;"class="text-center">Action</th>
+                            <th style="width:10%;"class="text-center">Succursale</th>
+                            <th style="width:10%;"class="text-center">Département</th>
+                            <th style="width:10%;"class="text-center">Service</th>
+                            <th style="width:10%;" class="text-center">Statut</th>
+                            <th style="width:10%;"class="text-center">Date début de service</th>
+                            <th style="width:10%;"class="text-center">Date fin de service</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($employes as $employe)
+                        @forelse($historiques as $historique)
                             <tr>
-                                <td><img src="{{asset($employe->photo)}}" style="width:100px;height:100px;"></td>
-                                <td class="text-center">{{$employe->matricule}}</td>
-                                <td class="text-center">{{$employe->nom}}</td>
-                                <td class="text-center">{{$employe->prenom}}</td>
-                                <td class="text-center">{{$employe->situation->libelle }}</td>
-                                <td class="text-center">{{$employe->commune->libelle }}</td>
+                                <td><img src="{{asset($historique->photo)}}" style="width:100px;height:100px;"></td>
+                                <td class="text-center">{{$historique->succursale}}</td>
+                                <td class="text-center">{{$historique->departement}}</td>
+                                <td class="text-center">{{$historique->service}}</td>
                                 <td class="text-center">
-                                    {{-- <button title="lister les affectations" class="btn btn-warning">Historiques</button> --}}
-                                    <a href="{{route('manager.gestaffectations.historiques.list',['id'=>$employe->id])}}" title= "Lister les affectations de l'employé" class="btn btn-warning"> Historiques </a>
+                                    @if ($historique->is_end)
+                                        <span class="badge badge-danger">Fin de service</span>
+                                    @else
+                                    <span class="badge badge-success">Service en cours</span>
+                                    @endif
                                 </td>
+                                <td class="text-center">{{$historique->date_debut}}</td>
+                                <td class="text-center">{{$historique->date_fin}}</td>
                             </tr>
                         @empty
                             <tr>
@@ -88,9 +91,10 @@
             </div>
             <div class="card-footer">
                 <div class="float-right">
-                    {{ $employes->links() }}
+                    {{ $historiques->links() }}
                 </div>
             </div>
         </div>
     </div>
 </div>
+

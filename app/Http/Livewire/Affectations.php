@@ -2,86 +2,56 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Commune;
 use App\Models\Employe;
-use App\Models\Service;
 use Livewire\Component;
-use App\Models\Succursale;
-use App\Models\Departement;
-use App\Models\EmployeService;
 use Livewire\WithPagination;
+use App\Models\PieceIdentite;
+use App\Models\EmployeService;
+use Illuminate\Support\Facades\DB;
+use App\Models\SituationMatrimoniale;
 
 class Affectations extends Component
 {
     //dans ce controller je vais developper la fonctionnalité historique
     use WithPagination;
     protected $paginationTheme = "bootstrap";
+    //variable pour la recherche et le filtre 
+    public $search = "";
+    public $filtreCommune = "";
+    public $filtreSituaion = "";
 
-      //select dynamique 
-      public $succursales;
-      public $departements;
-      public $services;
-      public $selectedSuccursale = NULL;
-      public $selectedDepartement = Null;
-      public $employeId;
-      //variables qui concerne l'affectation 
-      public $newAffectation = [];
-      public $modifAffectation = [];
-
-    public function showAffectation($employeId){
-        $this->employeId = $employeId;
-        $this->dispatchBrowserEvent("showAddModal");
-    }
-
-    public function closeAddAffectationModal(){
-        $this->resetErrorBag();
-        $this->selectedSuccursale = NULL;
-        $this->selectedDepartement = Null;
-        $this->newAffectation = [];
-        $this->dispatchBrowserEvent("closeModal",[]);
-    }
-    public function editAffectation($employeId){
-        $employeService = EmployeService::where('is_end', false)
-        ->where('employe_id', $employeId)
-        ->with("employe")
-        ->with("service")
-        ->first();
-        if (!is_null($employeService)) {
-            $this->modifAffectation =  $employeService->toArray();
-        }
-        $this->dispatchBrowserEvent("showEditModal");
-    }
-    public function addAffectation(){
-        $validateAttribute = $this->validate([
-            "newAffectation.date_debut" => ["required"],
-            "newAffectation.date_fin" => ["required"],
-        ]);
-        $validateAttribute['newAffectation']["employe_id"] = $this->employeId;
-        $validateAttribute['newAffectation']["service_id"] =$this->newAffectation["service_id"];
-        EmployeService::create($validateAttribute['newAffectation']);
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Affecter avec succès!"]);
-    }
-   
-  public function mount(){
-      $this->succursales = Succursale::all();
-      $this->departements = collect();
-      $this->services = collect();
-  }
-  public function updatedselectedSuccursale($succursale){
-    if (!is_null($succursale)) {
-        $this->departements = Departement::where('succursale_id', $succursale)->get();
-    }
-  }
-  
-  public function updatedselectedDepartement($departement){
-    if (!is_null($departement)) {
-        $this->services = Service::where("departement_id",$departement)->get();
-    }
-  }
     public function render()
     {
+        $employeQuery = Employe::query();
+
+        
+        if($this->search != ""){
+            $this->resetPage();
+            $employeQuery->where("nom", "LIKE",  "%". $this->search ."%")
+                    ->orWhere("matricule","LIKE",  "%". $this->search ."%")
+                    ->orWhere("prenom","LIKE",  "%". $this->search ."%");
+        }
+        if($this->filtreCommune != ""){
+            $employeQuery->where("commune_id",$this->filtreCommune);
+        }
+        if($this->filtreSituaion != ""){
+            $employeQuery->where("situation_matrimoniale_id",$this->filtreSituaion);
+        }
         $data = [
-            "employes" => Employe::latest()->paginate(5),
+            "employes" => $employeQuery->latest()->paginate(5),
+            "communeemployes" => Commune::orderBy("libelle","ASC")->get(),
+            "situationemployes" => SituationMatrimoniale::orderBy("libelle","ASC")->get(),
+            "pieceIdentites" => PieceIdentite::orderBy("libelle","ASC")->get(),
         ];
+       
+        // $affectations = DB::table('employe_service')
+        // ->join('employes', 'employe_service.employe_id', '=', 'employes.id')
+        // ->join('services', 'employe_service.service_id', '=', 'services.id')
+        // ->join('departements', 'services.departement_id', '=', 'departements.id')
+        // ->join('succursales', 'departements.succursale_id', '=', 'succursales.id')
+        // ->select('employes.photo as photo','employes.matricule as matricule','employes.nom as nom','employes.prenom as prenom', 'succursales.libelle as succursale', 'departements.libelle as departement', 'services.libelle as service', 'employe_service.date_debut', 'employe_service.date_fin')
+        // ->paginate(1);
         return view('livewire.affectations.index',$data)->extends("layouts.master")->section("contenu");
     }
 }

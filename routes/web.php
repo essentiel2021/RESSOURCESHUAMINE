@@ -1,26 +1,26 @@
 <?php
 
+use App\Models\Employe;
+use App\Models\Service;
 use App\Http\Livewire\Users;
+use App\Models\EmployeService;
+use App\Http\Livewire\Employes;
+use App\Http\Livewire\BlackList;
+use App\Http\Livewire\NosServices;
 use App\Http\Livewire\ServiceComp;
 use App\Http\Livewire\Succursales;
+use Illuminate\Support\Facades\DB;
+use App\Http\Livewire\Affectations;
 use App\Http\Livewire\Departements;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
-use App\Http\Livewire\Affectations;
-use App\Http\Livewire\BlackList;
-use App\Http\Livewire\Employes;
-use App\Http\Livewire\Mutations;
-use App\Http\Livewire\NosServices;
-use App\Models\Commune;
-use App\Models\Employe;
-use App\Models\EmployeService;
-use App\Models\Service;
+use App\Http\Livewire\Historiques;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,15 +66,12 @@ Route::group([
         Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
         Route::get("/services",NosServices::class)->name("service");
     });
-
-    //route concernant l'affectation
-    
-    Route::group([
-        "prefix" => "gestaffectations",'as' => 'gestaffectations.'], function(){
-            Route::get("/affectations", Affectations::class)->name("affectations");
-            // Route::get("/mutations", Mutations::class)->name("mutations");
-    });
-
+    Route::group(
+        ["prefix" => "gestaffectations","as" => "gestaffectations."],function(){
+            Route::get("/historiques",Affectations::class)->name("historiques");
+            Route::get("/historiques/{id}/list",Historiques::class)->name("historiques.list");
+        }
+    );
 });
 
 
@@ -87,21 +84,8 @@ Route::group([
         ["prefix" => "gestemployes","as" => "gestemployes."],function(){
             Route::get("/employes",Employes::class)->name("employe.index");
             Route::get("/blacklist",BlackList::class)->name("employe.black");
-            Route::get("/employe/{id}/affectations",Employes::class)->name("employe.affectations");
         }
     );
-});
-
-// Route::get("/employes",function (){
-//     return Employe::with("commune")->get();
-// });
-
-Route::get("/employeServices",function (){
-    //return Employe::with("services")->find(10);
-    //return Employe::find(10)->services();
-    //return Employe::find(10)->services()->orderBy('id')->get();
-    //return EmployeService::all();
-    return EmployeService::with("employe")->where("is_end",1)->get();
 });
 
 //les routes concernant le profil du compte
@@ -112,3 +96,29 @@ Route::post("user/store",[UserController::class,"store"])->name('post.user');
 Route::get('user/password', [UserController::class, 'password'])->name('user.password');
 
 Route::post('password', [UserController::class, 'updatePassword'])->name('update.password');
+
+Route::get("/employeServices",function (){
+    $id = 2;
+    // $historique = EmployeService::with(['employe', 'service', 'departement', 'succursale'])
+    //         ->where('employe_id', $id)
+    //         ->get();
+
+    // $historique = Employe::where('id', $id)
+    //             ->join('employe_service', 'employe.id', '=', 'employe_service.employe_id')
+    //             ->join('service', 'employe_service.service_id', '=', 'service.id')
+    //             ->join('departement', 'service.department_id', '=', 'department.id')
+    //             ->join('succursale', 'department.succursale_id', '=', 'succursale.id')
+    //             ->select('employe.nom as nom', 'succursale.libelle as succursale', 'department.libelle as department', 'service.libelle as service', 'employe_service.start_date', 'employe_service.end_date')
+    //             ->get();
+    // return $historique;
+
+     $affectations = DB::table('employe_service')->where('employe_id', $id)
+        ->join('employes', 'employe_service.employe_id', '=', 'employes.id')
+        ->join('services', 'employe_service.service_id', '=', 'services.id')
+        ->join('departements', 'services.departement_id', '=', 'departements.id')
+        ->join('succursales', 'departements.succursale_id', '=', 'succursales.id')
+        ->select('employes.photo as photo','employes.matricule as matricule','employes.nom as nom','employes.prenom as prenom', 'succursales.libelle as succursale', 'departements.libelle as departement', 'services.libelle as service', 'employe_service.date_debut', 'employe_service.date_fin')
+        ->get();
+    return $affectations ;
+});
+

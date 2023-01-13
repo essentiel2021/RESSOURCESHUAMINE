@@ -20,7 +20,7 @@ class ServiceComp extends Component
     public $isService = false;
     public $idService ="";
     public $edit = false;
-    
+    public $departement;
     public function mount($id){
         
         $this->departement = Departement::find($id);
