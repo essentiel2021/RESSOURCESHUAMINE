@@ -50,8 +50,6 @@
                                
                                 <td class="text-center">
                                     <button class="btn btn-link" title="Modifier ce compte" wire:click='goToEditUser({{$user->id}})'> <i class="far fa-edit"></i></button>
-                                    <button class="btn btn-link" title="Supprimer ce compte" wire:click='confirmDelete("{{$user->name}}{{$user->lastName}}",{{$user->id}})'> 
-                                    <i class="far fa-trash-alt"></i></button>
                                 </td>
                             </tr>
                         @endforeach

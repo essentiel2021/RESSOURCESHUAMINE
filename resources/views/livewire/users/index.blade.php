@@ -26,12 +26,7 @@
         cancelButtonText: 'Annuler',
         }).then((result) => {
         if (result.isConfirmed) {
-            if(event.detail.message.data.user_id){
-                @this.deleteUser(event.detail.message.data.user_id)
-            }
-            else{
-                @this.resetPassword()
-            }
+            @this.resetPassword()
         }
         })
     })
