@@ -143,24 +143,24 @@ class Users extends Component
         User::find($this->editUser["id"])->update(["password" => bcrypt(DEFAULTPASWWORD)]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Mot de passe du compte réinitialiser avec succès!"]);
     }
-    public function confirmDelete($name,$id){
+    // public function confirmDelete($name,$id){
 
-        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
-            'text' => "Vous êtes sur le point de supprimer le compte $name de la liste.Voulez vous continuer?",
-            'title' =>"Êtes vous sûr de vouloir continuer?",
-            'type' => "warning",
-            'data' => [
+    //     $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
+    //         'text' => "Vous êtes sur le point de supprimer le compte $name de la liste.Voulez vous continuer?",
+    //         'title' =>"Êtes vous sûr de vouloir continuer?",
+    //         'type' => "warning",
+    //         'data' => [
 
-                "user_id" => $id
-            ]
-        ]]);
-    }
-    public function deleteUser($id){
-        DB::table("user_role")->where("user_id", $id)->delete();
-        DB::table("user_permission")->where("user_id", $id)->delete();
-        User::find($id)->delete();
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte supprimé avec succès!"]);
-    }
+    //             "user_id" => $id
+    //         ]
+    //     ]]);
+    // }
+    // public function deleteUser($id){
+    //     DB::table("user_role")->where("user_id", $id)->delete();
+    //     DB::table("user_permission")->where("user_id", $id)->delete();
+    //     User::find($id)->delete();
+    //     $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Compte supprimé avec succès!"]);
+    // }
 
     public function accountActive($id){
         // Récupérez l'utilisateur et restaurez-le

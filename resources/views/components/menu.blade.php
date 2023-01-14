@@ -7,8 +7,8 @@
             </a>
         </li>
         @can("manager")
-        {{-- <li class="nav-item  ">
-            <a href="#" class="nav-link">
+        <li class="nav-item {{ setMenuClass('manager.gestaffectations.', 'menu-open') }}">
+            <a href="#" class="nav-link {{ setMenuClass('manager.gestaffectations.','active')}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Tableau de bord
@@ -23,13 +23,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route("manager.gestaffectations.historiques")}}" class="nav-link {{ setMenuActive("manager.gestaffectations.historiques")}}">
                   <i class="nav-icon fas fa-swatchbook"></i>
-                  <p>Locations</p>
+                  <p>Historique des affectations</p>
                 </a>
               </li>
             </ul>
-        </li> --}}
+        </li>
         
         <li class="nav-item {{ setMenuClass('manager.gestcomptes.', 'menu-open') }}">
             <a href="#" class="nav-link {{ setMenuClass('manager.gestcomptes.','active')}}">
@@ -81,37 +81,6 @@
             </ul>
           </li>
         </li>
-
-        <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="nav-icon fa-solid fa-building-user"></i>
-              <p>
-                Gestion Affectations
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route("manager.gestaffectations.affectations")}}" class="nav-link">
-                  <i class="nav-icon fa-regular fa-building"></i>
-                  <p>Succursales</p>
-                </a>
-              </li>
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fa-solid fa-bars"></i>
-                  <p>Départements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fa-solid fa-bars"></i>
-                  <p>Services</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </li>
         @endcan 
                
         @can('assistant')
@@ -136,12 +105,6 @@
                   <p>Black List</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="{{ route("assistant.gestemployes.employe.black")}}" class="nav-link {{ setMenuClass("assistant.gestemployes.employe.black","active") }}">
-                  <i class="fa-solid fa-user-xmark"></i>
-                  <p>Historique des affectations</p>
-                </a>
-              </li> --}}
             </ul>
           </li>
         @endcan
