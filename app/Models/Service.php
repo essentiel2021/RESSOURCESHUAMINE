@@ -11,8 +11,7 @@ use Spatie\Sluggable\SlugOptions;
 class Service extends Model
 {
     use HasFactory;
-    use HasSlug;
-    protected $fillable = ['libelle','slug','departement_id'];
+    protected $fillable = ['libelle','departement_id'];
     public function departement()
     {
         return $this->belongsTo(Departement::class);
@@ -20,11 +19,11 @@ class Service extends Model
     public function employes(){
         return $this->belongsToMany(Employe::class, 'employe_service', 'service_id', 'employe_id');
     }
-    public function getSlugOptions() : SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('libelle')
-            ->saveSlugsTo('slug')
-            ->doNotGenerateSlugsOnUpdate();
-    }
+    // public function getSlugOptions() : SlugOptions
+    // {
+    //     return SlugOptions::create()
+    //         ->generateSlugsFrom('libelle')
+    //         ->saveSlugsTo('slug')
+    //         ->doNotGenerateSlugsOnUpdate();
+    // }
 }

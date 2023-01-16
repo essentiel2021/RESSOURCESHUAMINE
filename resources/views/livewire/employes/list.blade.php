@@ -71,7 +71,7 @@
                                 <td class="text-center">
                                     <button class="btn btn-link" title="Modifier un employé" wire:click='goToEditEmployee({{$employe->id}})'> <i class="far fa-edit"></i></button>
                                     <button class="btn btn-link" title="supprimer un employé" wire:click='showDeleteEmploye({{$employe->id}})'><i class="far fa-trash-alt"></i></button>
-                                    <button class="btn btn-link" title="Affecter un employéAffecter un employé" wire:click='showAddAffectation({{$employe->id}})'><i class="fa-sharp fa-solid fa-money-check"></i></button>
+                                    <button class="btn btn-link" title="Affecter un employé" wire:click='showAddAffectation({{$employe->id}})'><i class="fa-sharp fa-solid fa-money-check"></i></button>
                                     {{-- <a href="{{route('assistant.gestemployes.employe.affectations',['id'=>$employe->id])}}" title= "Affecter un employé" class="btn btn-link"> <i class="fa-sharp fa-solid fa-money-check"></i> </a> --}}
                                 </td>
                             </tr>

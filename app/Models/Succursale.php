@@ -11,17 +11,15 @@ use Spatie\Sluggable\SlugOptions;
 class Succursale extends Model
 {
     use HasFactory;
-    use HasSlug;
-
-    protected $fillable = ['libelle','slug'];
+    protected $fillable = ['libelle'];
     
-    public function getSlugOptions() : SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('libelle')
-            ->saveSlugsTo('slug')
-            ->doNotGenerateSlugsOnUpdate();
-    }
+    // public function getSlugOptions() : SlugOptions
+    // {
+    //     return SlugOptions::create()
+    //         ->generateSlugsFrom('libelle')
+    //         ->saveSlugsTo('slug')
+    //         ->doNotGenerateSlugsOnUpdate();
+    // }
 
     // public function getRouteKeyName()
     // {
