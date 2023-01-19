@@ -55,7 +55,7 @@
                             <th style="width:10%;" class="text-center">Nom</th>
                             <th style="width:20%;" class="text-center">Prenom</th>
                             <th style="width:10%;"class="text-center">Situation matrimoniale</th>
-                            <th style="width:10%;"class="text-center">Commune</th>
+                            <th style="width:10%;"class="text-center">Age</th>
                             <th style="width:15%;"class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
                                 <td class="text-center">{{$employe->nom}}</td>
                                 <td class="text-center">{{$employe->prenom}}</td>
                                 <td class="text-center">{{$employe->situation->libelle }}</td>
-                                <td class="text-center">{{$employe->commune->libelle }}</td>
+                                <td class="text-center">{{$employe->age() }} Ans </td>
                                 <td class="text-center">
                                     <button class="btn btn-link" title="Modifier un employé" wire:click='goToEditEmployee({{$employe->id}})'> <i class="far fa-edit"></i></button>
                                     <button class="btn btn-link" title="supprimer un employé" wire:click='showDeleteEmploye({{$employe->id}})'><i class="far fa-trash-alt"></i></button>

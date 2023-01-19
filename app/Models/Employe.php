@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employe extends Model
 {
@@ -30,5 +31,9 @@ class Employe extends Model
     }
     public function user(){
         
+    }
+    public function age()
+    {
+        return Carbon::parse($this->dateNaissance)->age;
     }
 }
