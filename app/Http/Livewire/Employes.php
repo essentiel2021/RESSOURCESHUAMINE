@@ -360,7 +360,6 @@ class Employes extends Component
         $this->resetErrorBag();
     }
 
-    //ici la fonction genererAge
 
     public function goToListEmployee(){
         $this->currentPage = PAGELISTEMPLOYE;
