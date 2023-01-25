@@ -170,9 +170,9 @@ class Employes extends Component
                 'newEmploye.numeroPermis' => 'nullable|unique:employes,numeroPermis',
                 'newEmploye.numeroCNPS' => 'nullable|unique:employes,numeroCNPS',
                 'newEmploye.numeroDos' => 'numeric|nullable|unique:employes,numeroDos',
-                'addPhoto' => 'image|max:10240',
-                'addPhotoPiece' => 'image|max:10240',
-                'addPhotoActe' => 'image|max:10240',
+                // 'addPhoto' => 'image|max:10240',
+                // 'addPhotoPiece' => 'image|max:10240',
+                // 'addPhotoActe' => 'image|max:10240',
             ];
         }
     }
