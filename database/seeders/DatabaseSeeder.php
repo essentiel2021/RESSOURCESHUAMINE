@@ -21,14 +21,14 @@ class DatabaseSeeder extends Seeder
         $this->call(CommuneSeeder::class);
         $this->call(PieceIdentiteSeeder::class);
         $this->call(SituationMatrimonialeSeeder::class);
-        $this->call(SuccursaleSeeder::class);
-        $this->call(DepartementSeeder::class);
-        $this->call(ServiceSeeder::class);
+        // $this->call(SuccursaleSeeder::class);
+        // $this->call(DepartementSeeder::class);
+        // $this->call(ServiceSeeder::class);
 
         User::find(1)->roles()->attach(1);
         User::find(2)->roles()->attach(3);
         User::find(2)->roles()->attach(2);
         User::find(3)->roles()->attach(2);
-        Employe::factory(10)->create();
+        //Employe::factory(10)->create();
     }
 }
