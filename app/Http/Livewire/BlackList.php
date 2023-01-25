@@ -15,7 +15,10 @@ class BlackList extends Component
     use WithPagination;
     protected $paginationTheme = "bootstrap";
     public $currentPage = PAGELISTBLACKLIST;
+
+    //Variables pour la recherche et les filtres 
     public $search = "";
+    
     public $editEmploye = [];
     public $editEmployeOldValues = [];
 
@@ -50,7 +53,8 @@ class BlackList extends Component
         $employeQuery = Employe::query();
 
         if($this->search != ""){
-            $employeQuery->where("nom", "LIKE",  "%". $this->search ."%")
+            $employeQuery->where("blackList",1)
+                ->where("nom", "LIKE",  "%". $this->search ."%")
                 ->orWhere("matricule","LIKE",  "%". $this->search ."%")
                 ->orWhere("prenom","LIKE",  "%". $this->search ."%");
         }
