@@ -162,7 +162,7 @@ class Employes extends Component
                 'newEmploye.dateNaissance' => 'required',  
                 'newEmploye.nombre_enfant' => 'required',
                 'newEmploye.telephone1' =>'required|unique:employes,telephone1|min:10',
-                'newEmploye.telephone2' => 'required|unique:employes,telephone2|min:10',
+                'newEmploye.telephone2' => 'unique:employes,telephone2|min:10',
                 'newEmploye.quatier' => 'required',
                 'newEmploye.personContact' => 'required',
                 'newEmploye.personContactNum' => 'required|unique:employes,personContactNum',
