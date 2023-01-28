@@ -171,6 +171,21 @@
                         </div>
                     </div>
                     <div class="d-flex">
+                        <div class="form-group flex-grow-1">
+                            <label for="">Fonction</label>
+                            <select wire:model='newEmploye.situation_matrimoniale_id' class="form-control @error('newEmploye.situation_matrimoniale_id') is-invalid @enderror">
+                                <option value="">--------------</option>
+                                @foreach ($situationemployes as $item)
+                                    <option value="{{$item->id}}">{{$item->libelle}}</option>
+                                @endforeach
+                            </select>
+                            @error("newEmploye.situation_matrimoniale_id")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <div class="form-group flex-grow-1 mr-2"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
                             <label for="name">Photo identité</label>
                             <input type="file" wire:model='addPhoto' class="form-control">

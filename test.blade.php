@@ -203,3 +203,29 @@
                             </div>
                         </div>
                     </div> --}}
+
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label for="">Sexe</label>
+                            <select class="form-control @error('newEmploye.sexe') is-invalid @enderror" wire:model='newEmploye.sexe'>
+                                <option value="">--------------</option>
+                                <option value= "M">Homme</option>
+                                <option value= "F">Femme</option>
+                            </select>
+                            @error("newEmploye.sexe")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group flex-grow-1">
+                            <label for="">Situation Matrimoniale</label>
+                            <select wire:model='newEmploye.situation_matrimoniale_id' class="form-control @error('newEmploye.situation_matrimoniale_id') is-invalid @enderror">
+                                <option value="">--------------</option>
+                                @foreach ($situationemployes as $item)
+                                    <option value="{{$item->id}}">{{$item->libelle}}</option>
+                                @endforeach
+                            </select>
+                            @error("newEmploye.situation_matrimoniale_id")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>

@@ -376,6 +376,5 @@ class Employes extends Component
         $this->editEmployeOldValues = $this->editEmploye;
         $this->resetErrorBag();
     }
-    //je veux commencer le travail
    
 }

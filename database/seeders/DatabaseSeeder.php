@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CommuneSeeder::class);
         $this->call(PieceIdentiteSeeder::class);
         $this->call(SituationMatrimonialeSeeder::class);
+        $this->call(FonctionSeeder::class);
         // $this->call(SuccursaleSeeder::class);
         // $this->call(DepartementSeeder::class);
         // $this->call(ServiceSeeder::class);

@@ -32,6 +32,9 @@ class Employe extends Model
     public function user(){
         
     }
+    public function fonction(){
+        return $this->belongsTo(Fonction::class);
+    }
     public function age()
     {
         return Carbon::parse($this->dateNaissance)->age;
