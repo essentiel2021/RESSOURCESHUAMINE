@@ -28,6 +28,7 @@ class Employes extends Component
     public $search = "";
     public $filtreSituaion = "";
     public $filtreCommune = "";
+    public $filtreFonction = "";
  
     //variable pour l'apparition des pages
     public $currentPage = PAGELISTEMPLOYE;
@@ -93,6 +94,9 @@ class Employes extends Component
         }
         if($this->filtreSituaion != ""){
             $employeQuery->where("situation_matrimoniale_id",$this->filtreSituaion);
+        }
+        if ($this->filtreFonction != "") {
+            $employeQuery->where("fonction_id",$this->filtreFonction);
         }
         
         $employeQuery->where("blackList",false);

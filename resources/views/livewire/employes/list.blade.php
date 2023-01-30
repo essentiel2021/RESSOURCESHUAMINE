@@ -37,6 +37,16 @@
                         </select>
                     </div>
 
+                    <div class="form-group mr-3">
+                        <label for="filtreFonction">Filtrer par Fonction</label>
+                        <select  id="filtreFonction" wire:model="filtreFonction" class="form-control">
+                                <option value=""></option>
+                                @foreach ($fonctions as $fonction)
+                                    <option value="{{$fonction->id}}">{{ $fonction->libelle }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+
                     {{-- <div class="form-group mr-3">
                         <label for="filtreblack">Filtrer par BlackList</label>
                         <select  id="filtreblack" wire:model="filtreblack" class="form-control">
