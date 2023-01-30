@@ -4,7 +4,7 @@
             <div class="card-header bg-primary">
                 <h3 class="card-title flex-grow-1"><i class="fa-regular fa-building fa-2x"></i> Services </h3>
                 <div class="card-tools d-flex align-items-center">
-                    <a href="{{ route("manager.gestsuccursales.departements") }}" class="btn btn-link text-white mr-4 d-block"><i class="fas fa-long-arrow-alt-left"></i> Retour vers la liste des départements</a>
+                    <a href="{{ route("assistant.gestsuccursales.departements") }}" class="btn btn-link text-white mr-4 d-block"><i class="fas fa-long-arrow-alt-left"></i> Retour vers la liste des départements</a>
                     <a class="btn btn-link btn-db text-white mr-4 d-block" wire:click='addService'><i class="fa-regular fa-building"></i> Nouveau Servive</a>
                 </div>
             </div>

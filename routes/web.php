@@ -59,13 +59,13 @@ Route::group([
             Route::get("/users",Users::class)->name("users.index");
         }
     );
-    Route::group([
-        "prefix" => "gestsuccursales",'as' => 'gestsuccursales.'], function(){
-        Route::get("/succursales", Succursales::class)->name("succursales");
-        Route::get("/departements",Departements::class)->name("departements");
-        Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
-        Route::get("/services",NosServices::class)->name("service");
-    });
+    // Route::group([
+    //     "prefix" => "gestsuccursales",'as' => 'gestsuccursales.'], function(){
+    //     Route::get("/succursales", Succursales::class)->name("succursales");
+    //     Route::get("/departements",Departements::class)->name("departements");
+    //     Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
+    //     Route::get("/services",NosServices::class)->name("service");
+    // });
     Route::group(
         ["prefix" => "gestaffectations","as" => "gestaffectations."],function(){
             Route::get("/historiques",Affectations::class)->name("historiques");
@@ -86,6 +86,13 @@ Route::group([
             Route::get("/blacklist",BlackList::class)->name("employe.black");
         }
     );
+    Route::group([
+        "prefix" => "gestsuccursales",'as' => 'gestsuccursales.'], function(){
+        Route::get("/succursales", Succursales::class)->name("succursales");
+        Route::get("/departements",Departements::class)->name("departements");
+        Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
+        Route::get("/services",NosServices::class)->name("service");
+    });
 });
 
 //les routes concernant le profil du compte

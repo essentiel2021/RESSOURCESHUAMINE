@@ -49,41 +49,39 @@
             </ul>
           </li>
         </li>
-
-
-        <li class="nav-item {{ setMenuClass('manager.gestsuccursales.','menu-open')}}">
-            <a href="{{ route("manager.gestsuccursales.succursales") }}" class="nav-link {{ setMenuClass('manager.gestsuccursales.','active')}}">
-              <i class="nav-icon fa-solid fa-building-user"></i>
-              <p>
-                Gestion Succursales
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route("manager.gestsuccursales.succursales")}}" class="nav-link {{ setMenuClass("manager.gestsuccursales.succursales","active") }}">
-                  <i class="nav-icon fa-regular fa-building"></i>
-                  <p>Succursales</p>
-                </a>
-              </li>
-               <li class="nav-item">
-                <a href="{{ route("manager.gestsuccursales.departements")}}" class="nav-link {{ setMenuClass("manager.gestsuccursales.departements","active") }}">
-                  <i class="nav-icon fa-solid fa-bars"></i>
-                  <p>Départements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route("manager.gestsuccursales.service")}}" class="nav-link {{ setMenuClass("manager.gestsuccursales.service","active") }}">
-                  <i class="nav-icon fa-solid fa-bars"></i>
-                  <p>Services</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </li>
         @endcan 
                
         @can('assistant')
+        <li class="nav-item {{ setMenuClass('assistant.gestsuccursales.','menu-open')}}">
+          <a href="{{ route("assistant.gestsuccursales.succursales") }}" class="nav-link {{ setMenuClass('assistant.gestsuccursales.succursales','active')}}">
+            <i class="nav-icon fa-solid fa-building-user"></i>
+            <p>
+              Gestion Succursales
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route("assistant.gestsuccursales.succursales")}}" class="nav-link {{ setMenuClass("assistant.gestsuccursales.succursales","active") }}">
+                <i class="nav-icon fa-regular fa-building"></i>
+                <p>Succursales</p>
+              </a>
+            </li>
+             <li class="nav-item">
+              <a href="{{ route("assistant.gestsuccursales.departements")}}" class="nav-link {{ setMenuClass("assistant.gestsuccursales.departements","active") }}">
+                <i class="nav-icon fa-solid fa-bars"></i>
+                <p>Départements</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route("assistant.gestsuccursales.service")}}" class="nav-link {{ setMenuClass("assistant.gestsuccursales.service","active") }}">
+                <i class="nav-icon fa-solid fa-bars"></i>
+                <p>Services</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </li>
           <li class="nav-item {{ setMenuClass('assistant.gestemployes.','menu-open')}}">
             <a href="#" class="nav-link {{ setMenuClass('assistant.gestemployes.','active')}}">
               {{-- <i class="nav-icon fa-solid fa-user"></i> --}} <i class="nav-icon fa-solid fa-users"></i>
