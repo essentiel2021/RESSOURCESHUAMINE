@@ -27,13 +27,22 @@
                         <label for="">Sexe</label>
                         <select class="form-control @error('editEmploye.sexe') is-invalid @enderror" wire:model='editEmploye.sexe'>
                             <option value="">--------------</option>
-                            <option value="1">Homme</option>
-                            <option value="0">Femme</option>
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
                         </select>
                         @error("editEmploye.sexe")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group flex-grow-1 mr-2">
+                        <label>Adresse mail</label>
+                        <input type="email" wire:model='editEmploye.email' class="form-control @error('editEmploye.email') is-invalid @enderror" placeholder="Enter email">
+                        @error("editEmploye.email")
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="d-flex">
                     <div class="form-group flex-grow-1">
                         <label for="">Situation Matrimoniale</label>
                         <select wire:model='editEmploye.situation_matrimoniale_id' class="form-control @error('editEmploye.situation_matrimoniale_id') is-invalid @enderror">
@@ -43,6 +52,29 @@
                             @endforeach
                         </select>
                         @error("editEmploye.situation_matrimoniale_id")
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        <label>Nombre d'enfant</label>
+                        <input type="number" wire:model='editEmploye.nombre_enfant' class="form-control @error('editEmploye.nombre_enfant') is-invalid @enderror">
+                        @error("editEmploye.nombre_enfant")
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="form-group flex-grow-1 mr-2" wire:model='editEmploye.dateNaissance'>
+                        <label>Date de naissance</label>
+                        <input wire:model='editEmploye.dateNaissance' type="date" class="form-control @error('editEmploye.dateNaissance') is-invalid @enderror">
+                        @error("editEmploye.dateNaissance")
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        <label>Lieu de Naissance</label>
+                        <input type="text" wire:model='editEmploye.lieu_naissance' class="form-control @error('editEmploye.lieu_naissance') is-invalid @enderror" placeholder="lieu de naissance de l'employé">
+                        @error("editEmploye.lieu_naissance")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -68,22 +100,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="form-group flex-grow-1 mr-2" wire:model='editEmploye.dateNaissance'>
-                        <label>Date de naissance</label>
-                        <input wire:model='editEmploye.dateNaissance' type="date" class="form-control @error('editEmploye.dateNaissance') is-invalid @enderror">
-                        @error("editEmploye.dateNaissance")
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group flex-grow-1">
-                        <label>Nombre d'enfant</label>
-                        <input type="number" wire:model='editEmploye.nombre_enfant' class="form-control @error('editEmploye.nombre_enfant') is-invalid @enderror">
-                        @error("editEmploye.nombre_enfant")
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
+                
                 <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
                         <label>Commune</label>
@@ -123,9 +140,14 @@
                 </div>
                 <div class="d-flex">
                     <div class="form-group flex-grow-1 mr-2">
-                        <label>Adresse mail</label>
-                        <input type="email" wire:model='editEmploye.email' class="form-control @error('editEmploye.email') is-invalid @enderror" placeholder="Enter email">
-                        @error("editEmploye.email")
+                        <label for="">Fonction</label>
+                        <select wire:model='editEmploye.fonction_id' class="form-control @error('editEmploye.fonction_id') is-invalid @enderror">
+                            <option value="">--------------</option>
+                            @foreach ($fonctions as $item)
+                                <option value="{{$item->id}}">{{$item->libelle}}</option>
+                            @endforeach
+                        </select>
+                        @error("editEmploye.fonction_id")
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

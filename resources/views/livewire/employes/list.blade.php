@@ -79,7 +79,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">
+                                <td colspan="8">
                                     <div class="alert alert-danger">
                                         <h5><i class="icon fas fa-ban"></i> Information!</h5>
                                         Aucune donnée en Base.

@@ -12,6 +12,7 @@ use Livewire\WithPagination;
 use App\Models\PieceIdentite;
 use Livewire\WithFileUploads;
 use App\Models\EmployeService;
+use App\Models\Fonction;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Models\SituationMatrimoniale;
@@ -100,6 +101,7 @@ class Employes extends Component
             "communeemployes" => Commune::orderBy("libelle","ASC")->get(),
             "situationemployes" => SituationMatrimoniale::orderBy("libelle","ASC")->get(),
             "pieceIdentites" => PieceIdentite::orderBy("libelle","ASC")->get(),
+            "fonctions" => Fonction::orderBy("libelle","ASC")->get(),
         ];
         if ($this->editEmploye != []) {
             $this->showUpadteButton();
@@ -126,6 +128,8 @@ class Employes extends Component
         'newEmploye.numeroPermis' => 'Numero de permis de conduire',
         'newEmploye.numeroCNPS' => 'Numero CNPS',
         'newEmploye.numeroDos' => 'Numero du dossier',
+        'newEmploye.fonction_id' => 'Fonction',
+        'newEmploye.lieu_naissance' => 'Lieu de naissance',
     ];
     public function rules(){
         if($this->currentPage == PAGEEDITFORMTEMPLOYE){
@@ -135,12 +139,12 @@ class Employes extends Component
                 'editEmploye.situation_matrimoniale_id' => 'required',
                 'editEmploye.commune_id' => 'required|exists:App\Models\Commune,id',
                 'editEmploye.piece_identite_id' => 'required|exists:App\Models\PieceIdentite,id',
-                'editEmploye.email' => ['required', 'email', Rule::unique("employes", "email")->ignore($this->editEmploye['id'])],
+                'editEmploye.email' => ['email', Rule::unique("employes", "email")->ignore($this->editEmploye['id'])],
                 'editEmploye.sexe' => 'required',
                 'editEmploye.dateNaissance' => 'required',  
                 'editEmploye.nombre_enfant' => 'required',
                 'editEmploye.telephone1' =>['required', 'min:10', Rule::unique("employes", "telephone1")->ignore($this->editEmploye['id'])],
-                'editEmploye.telephone2' => ['required', 'min:10', Rule::unique("employes", "telephone2")->ignore($this->editEmploye['id'])],
+                // 'editEmploye.telephone2' => ['required', 'min:10', Rule::unique("employes", "telephone2")->ignore($this->editEmploye['id'])],
                 'editEmploye.quatier' => 'required',
                 'editEmploye.personContact' => 'required',
                 'editEmploye.personContactNum' =>['required',Rule::unique("employes","personContactNum")->ignore($this->editEmploye['id'])], 
@@ -157,7 +161,7 @@ class Employes extends Component
                 'newEmploye.situation_matrimoniale_id' => 'required',
                 'newEmploye.commune_id' => 'required|exists:App\Models\Commune,id',
                 'newEmploye.piece_identite_id' => 'required|exists:App\Models\PieceIdentite,id',
-                'newEmploye.email' => 'required|email|unique:employes,email',
+                'newEmploye.email' => 'email|unique:employes,email',
                 'newEmploye.sexe' => 'required',
                 'newEmploye.dateNaissance' => 'required',  
                 'newEmploye.nombre_enfant' => 'required',
@@ -170,6 +174,8 @@ class Employes extends Component
                 'newEmploye.numeroPermis' => 'nullable|unique:employes,numeroPermis',
                 'newEmploye.numeroCNPS' => 'nullable|unique:employes,numeroCNPS',
                 'newEmploye.numeroDos' => 'numeric|nullable|unique:employes,numeroDos',
+                'newEmploye.fonction_id' =>['sometimes','nullable','exists:fonctions,id'],
+                'newEmploye.lieu_naissance' => 'required'
                 // 'addPhoto' => 'image|max:10240',
                 // 'addPhotoPiece' => 'image|max:10240',
                 // 'addPhotoActe' => 'image|max:10240',
@@ -301,6 +307,8 @@ class Employes extends Component
             $this->editEmploye["personContactNum"] != $this->editEmployeOldValues["personContactNum"] ||
             $this->editEmploye["email"] != $this->editEmployeOldValues["email"] ||
             $this->editEmploye["acteNaissance"] != $this->editEmployeOldValues["acteNaissance"] ||
+            $this->editEmploye["fonction_id"] != $this->editEmployeOldValues["fonction_id"] ||
+            $this->editEmploye["lieu_naissance"] != $this->editEmployeOldValues["lieu_naissance"] ||
             $this->editPhoto != null||
             $this->editPhotoPiece != null ||
             $this->editPhotoActe != null ||
