@@ -20,6 +20,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Livewire\Fonctions;
 use App\Http\Livewire\Historiques;
 
 /*
@@ -92,6 +93,10 @@ Route::group([
         Route::get("/departements",Departements::class)->name("departements");
         Route::get("/departements/{id}/service",ServiceComp::class)->name("departements.service");
         Route::get("/services",NosServices::class)->name("service");
+    });
+    Route::group([
+        "prefix" => "gestfonctions",'as' => 'gestfonctions.'], function(){
+        Route::get("/fonctions", Fonctions::class)->name("fonctions");
     });
 });
 
