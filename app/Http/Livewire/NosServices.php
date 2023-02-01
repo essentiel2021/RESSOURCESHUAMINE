@@ -70,6 +70,19 @@ class NosServices extends Component
             $this->editHasChanged  = true;
         }
     }
+    //processus de delete Service 
+    public function confirmDelete($name,$id){
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message"=>[
+            'text' => "Vous êtes sur le point de supprimer la fonction $name de la liste.Voulez vous continuer?",
+            'title' =>"Êtes vous sûr de vouloir continuer?",
+            'type' => "warning",
+            'data' => ["service_id" => $id]
+        ]]);
+    }
+    public function deleteService(Service $service){
+        $service->delete();
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"La fonction $service->libelle supprimé avec succès!"]);
+    }
     public function mount()
     {
        $this->departements = Departement::orderBy("libelle","ASC")->get();
