@@ -29,7 +29,9 @@
                                 <td>{{$departement->libelle}}</td>
                                 <td>
                                     <button class="btn btn-link" wire:click="editDepartement({{$departement->id}})"> <i class="far fa-edit"></i> </button>
-                                    <button class="btn btn-link" wire:click="showDeleteDep('{{$departement->libelle}}', {{$departement->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                    @if (count($departement->services) == 0)
+                                        <button class="btn btn-link" wire:click="showDeleteDep('{{$departement->libelle}}', {{$departement->id}})"> <i class="far fa-trash-alt"></i> </button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
