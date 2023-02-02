@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\SituationMatrimoniale;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class Employes extends Component
 {
@@ -60,6 +61,9 @@ class Employes extends Component
        public $newServiceId;
        public $employeId;
        public $editAffectation = [];
+
+       //pour masquer le bouton affectation
+       public $masquer = false;
 
     public function mount(){
         $this->succursales = Succursale::all(); 
@@ -326,13 +330,19 @@ class Employes extends Component
         $this->employeId = $employeId;
     }
     public function addAffectation(){
-        //verification les champs date_debut et date_fin qui doivent etre requise
+        //verification les champs date_debut et nombre de mois qui doivent etre requise
         $validateAttribute = $this->validate([
             "newAffectation.date_debut" => ["required"],
-            "newAffectation.date_fin" => ["required"],
+            "newAffectation.nombre_mois" => ["required"],
+            // "newAffectation.date_fin" => ["required"],
         ]);
-        //fin verification
-        //recuperer l'affectation d'un employé qui est toujours encours
+        //ici je fais l'operation pour calculer la date de fin 
+        $startDate = Carbon::parse($validateAttribute['newAffectation']["date_debut"]);
+        $months = $validateAttribute['newAffectation']["nombre_mois"];
+        $endDate = $startDate->copy()->addMonths($months);
+        //fin du calcule de date de fin
+
+        //con
         $exists = DB::table('employe_service')
             ->where('employe_id', $this->employeId)
             ->where('is_end', false)
@@ -352,6 +362,7 @@ class Employes extends Component
         //ici il est question d'enregistrer l'affectation dans la DB
         $validateAttribute['newAffectation']["employe_id"] = $this->employeId;
         $validateAttribute['newAffectation']["service_id"] = $this->newServiceId;
+        $validateAttribute['newAffectation']['date_fin'] = $endDate->format('Y-m-d');
         EmployeService::create($validateAttribute['newAffectation']);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message"=>"Affecter avec succès!"]);
     }

@@ -38,17 +38,17 @@
                 @endif
                 @if (!is_null($newServiceId))
                     <div class="d-flex">
-                        <div class="form-group flex-grow-1">
+                        <div class="form-group flex-grow-1 mr-2">
                             <label>Date prise de service</label>
                             <input type="date" class="form-control @error('newAffectation.date_debut') is-invalid @enderror" wire:model='newAffectation.date_debut'>
                             @error("newAffectation.date_debut")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group flex-grow-1 mr-2">
-                            <label>Date fin prise de service</label>
-                            <input type="date" class="form-control @error('newAffectation.date_fin') is-invalid @enderror" wire:model='newAffectation.date_fin'>
-                            @error("newAffectation.date_fin")
+                        <div class="form-group flex-grow-1">
+                            <label>Durée (en mois)</label>
+                            <input type="number" class="form-control @error('newAffectation.nombre_mois') is-invalid @enderror" wire:model='newAffectation.nombre_mois'>
+                            @error("newAffectation.nombre_mois")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
